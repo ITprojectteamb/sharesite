@@ -1,0 +1,8 @@
+{% extends 'sharesite/base.html' %}
+
+{% block content %}
+
+<h2><a href="(% url 'want_detail' pk=post.pk %)">{{ post.want_name }}</a></h2>
+<p>{{ post.want_explanation|linebreaksbr }}</p>
+
+{% endblock %}
