@@ -39,7 +39,7 @@ def give_new(request):
             post.author = request.user
             post.published_date = timezone.now()
             post.save()
-            return redirect('post_detail', pk=post.pk)
+            return redirect('give_new', pk=post.pk)
     else:
         form = PostForm()
     return render(request, 'sharesite/give_new.html', {'form': form})
