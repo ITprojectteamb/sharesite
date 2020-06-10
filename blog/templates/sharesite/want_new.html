@@ -72,8 +72,8 @@
     ほしいもの新規投稿画面
 </div>
 
-<form action="/want" method="post">
-    <!--/wantへ、HTTP POST メソッドで送信。名前は、nameで定義したところ-->
+<form action="/wantlist/" method="post">{% csrf_token %}
+    <!--/wantlist/へ、HTTP POST メソッドで送信。名前は、nameで定義したところ-->
  <ul>
   <li>
     <label for="name">物品名:</label>

@@ -72,7 +72,7 @@
     プロフィール作成画面
 </div>
 
-<form action="/profile" method="post">
+<form action="/profile" method="post">{% csrf_token %}
     <!--/profileへ、HTTP POST メソッドで送信。名前は、nameで定義したところ-->
  <ul>
   <li>
