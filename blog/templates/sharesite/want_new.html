@@ -1,0 +1,22 @@
+{% extends 'sharesite/base.html' %}
+
+{% block content %}
+
+<form action="/want" method="post">
+ <ul>
+  <li>
+    <label for="name">物品名:</label>
+    <input type="text" id="name" name="give_name">
+  </li>
+  <li>
+    <label for="msg">要望説明:</label>
+    <textarea id="msg" name="give_explanation"></textarea>
+  </li>
+  <li>
+    <label for="msg">欲しい理由:</label>
+    <textarea id="msg" name="give_message"></textarea>
+  </li>
+ </ul>
+</form>
+
+{% endblock %}

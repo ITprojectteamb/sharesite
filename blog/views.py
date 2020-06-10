@@ -44,6 +44,19 @@ def give_new(request):
         form = PostForm()
     return render(request, 'sharesite/give_new.html', {'form': form})
 
+def want_new(request):
+    if request.method == "POST":
+        form = PostForm(request.POST)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.author = request.user
+            post.published_date = timezone.now()
+            post.save()
+            return redirect('want_new', pk=post.pk)
+    else:
+        form = PostForm()
+    return render(request, 'sharesite/want_new.html', {'form': form})
+
 def post_edit(request, pk):
     post = get_object_or_404(Post, pk=pk)
     if request.method == "POST":
