@@ -73,8 +73,8 @@ button {
     あげたいもの新規投稿画面
 </div>
 
-<form action="/give" method="post">
-    <!--/giveへ、HTTP POST メソッドで送信。名前は、nameで定義したところ-->
+<form action="/givelist/" method="post">{% csrf_token %}
+    <!--/givelist/へ、HTTP POST メソッドで送信。名前は、nameで定義したところ-->
  <ul>
   <li>
     <label for="name">物品名:</label>
