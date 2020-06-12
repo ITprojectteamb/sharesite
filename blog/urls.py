@@ -10,4 +10,5 @@ urlpatterns = [
     path('profilenew/', views.profile_new, name='profile_new'),
     path('give<int:pk>/', views.give_detail, name='give_detail'),
     path('want<int:pk>/', views.want_detail, name='want_detail'),
+    
 ]
