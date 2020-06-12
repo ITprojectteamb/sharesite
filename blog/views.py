@@ -1,8 +1,8 @@
 from django.shortcuts import render
 from django.utils import timezone
-from .models import Post
+from .models import Post,Give,Want
 from django.shortcuts import render, get_object_or_404
-from .forms import PostForm
+from .forms import PostForm,GiveForm,WantForm
 from django.shortcuts import redirect
 
 
@@ -10,41 +10,38 @@ def post_list(request):
     posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('published_date')
     return render(request, 'sharesite/post_list.html', {'posts': posts})
 
-
 def give_list(request):
-    posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('published_date')
-    return render(request, 'sharesite/give_list.html', {'posts': posts})
+    gives = Give.objects.filter(published_date__lte=timezone.now()).order_by('published_date')
+    return render(request, 'sharesite/give_list.html', {'gives': gives})
 
 def want_list(request):
-    posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('published_date')
-    return render(request, 'sharesite/want_list.html', {'posts': posts})
-
-
+    wants = Want.objects.filter(published_date__lte=timezone.now()).order_by('published_date')
+    return render(request, 'sharesite/want_list.html', {'wants': wants})
 
 def give_new(request):
     if request.method == "POST":
-        form = PostForm(request.POST)
+        form = GiveForm(request.POST)
         if form.is_valid():
-            post = form.save(commit=False)
-            post.author = request.user
-            post.published_date = timezone.now()
-            post.save()
-            return redirect('give_new', pk=post.pk)
+            give = form.save(commit=False)
+            give.author = request.user
+            give.published_date = timezone.now()
+            give.save()
+            return redirect('give_list')
     else:
-        form = PostForm()
+        form = GiveForm()
     return render(request, 'sharesite/give_new.html', {'form': form})
 
 def want_new(request):
     if request.method == "POST":
-        form = PostForm(request.POST)
+        form = WantForm(request.POST)
         if form.is_valid():
-            post = form.save(commit=False)
-            post.author = request.user
-            post.published_date = timezone.now()
-            post.save()
-            return redirect('want_new', pk=post.pk)
+            want = form.save(commit=False)
+            want.author = request.user
+            want.published_date = timezone.now()
+            want.save()
+            return redirect('want_list')
     else:
-        form = PostForm()
+        form = WantForm()
     return render(request, 'sharesite/want_new.html', {'form': form})
 
 def profile_new(request):
@@ -89,9 +86,9 @@ def want_edit(request, pk):
     return render(request, 'sharesite/want_edit.html', {'form': form})
 
 def want_detail(request, pk):
-    post = get_object_or_404(Post, pk=pk)
-    return render(request, 'sharesite/want_detail.html', {'post': post})
+    want = get_object_or_404(Want, pk=pk)
+    return render(request, 'sharesite/want_detail.html', {'want': want})
 
 def give_detail(request, pk):
-    post = get_object_or_404(Post, pk=pk)
-    return render(request, 'sharesite/give_detail.html', {'post': post})
+    give = get_object_or_404(Give, pk=pk)
+    return render(request, 'sharesite/give_detail.html', {'give': give})

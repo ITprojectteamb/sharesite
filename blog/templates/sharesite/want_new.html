@@ -1,6 +1,14 @@
 {% extends 'sharesite/base.html' %}
 
 {% block content %}
+<form method="POST" class="want_form">
+{% csrf_token %}
+{{ form.as_p }}
+<button type="submit">もらう</button>
+</form>
+
+
+
 <style>
     form {
       /* フォームをページの中央に置く */

@@ -127,6 +127,8 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+=======
+
 #カスタムユーザーモデルを認証に用いる
 AUTH_USER_MODEL = 'accounts.CustomUser'
 
@@ -161,3 +163,6 @@ ACCOUNT_EMAIL_SUBJECT_PREFIX = ''
 DEFAULT_FROM_EMAIL = 'admin@example.com'
 # メール送信先（コンソール）
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+
+LOGIN_REDIRECT_URL = '/'
