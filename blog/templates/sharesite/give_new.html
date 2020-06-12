@@ -1,6 +1,11 @@
 {% extends 'sharesite/base.html' %}
 
 {% block content %}
+<form method="POST" class="give_form">
+{% csrf_token %}
+{{ form.as_p }}
+<button type="submit">あげる</button>
+</form>
 
 <style>
 form {
