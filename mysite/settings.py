@@ -38,6 +38,13 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'blog.apps.BlogConfig',
+    # アカウントアプリの登録
+    'accounts.apps.AccountsConfig',
+
+    # allauthの利用を可能にする
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
 ]
 
 MIDDLEWARE = [
@@ -119,3 +126,38 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+
+#カスタムユーザーモデルを認証に用いる
+AUTH_USER_MODEL = 'accounts.CustomUser'
+
+# django-allauthでのサイト識別用IDを設定
+SITE_ID = 1
+
+#一派ユーザー用と管理ユーザー用の認証を設定
+AUTHENTICATION_BACKENDS = (
+    'allauth.account.auth_backends.AuthenticationBackend',
+    'django.contrib.auth.backends.ModelBackend',  
+)
+
+# メールアドレス認証設定
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_USERNAME_REQUIRED = False
+
+# メールアドレス確認を通すための設定
+ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
+ACCOUNT_EMAIL_REQUIRED = True
+
+# （未完了）ログイン/ログアウト後の遷移先を設定
+LOGIN_REDIRECT_URL = '/wantnew/'
+ACCOUNT_LOGOUT_REDIRECT_URL = 'account_login'
+
+# ログアウト設定
+ACCOUNT_LOGOUT_ON_GET = True
+
+# メールの件名の先頭をブランク
+ACCOUNT_EMAIL_SUBJECT_PREFIX = ''
+
+# デフォルトのメール送信元を設定
+DEFAULT_FROM_EMAIL = 'admin@example.com'
+# メール送信先（コンソール）
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
