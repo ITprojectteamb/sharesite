@@ -2,18 +2,7 @@
 
 {% block content %}
 
-{% csrf_token %}
-<div>
-    {% if post.published_date %}
-</div>
-<div>
-    {{ post.published_date }}
-</div>
-<div>
-    <h2>{{ post.give_name }}</h2>
-    <p>{{ post.give_explanation|linebreaksbr }}</p>
-    <p>{{ post.give_message|linebreaksbr }}</p>
-    <p>{{ post.give_information|linebreaksbr }}</p>
-</div>
-
+    <h2>{{ give.title }}</h2>
+    <h2>{{ give.text }}</h2>
+    
 {% endblock %}
