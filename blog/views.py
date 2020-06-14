@@ -5,10 +5,14 @@ from django.shortcuts import render, get_object_or_404
 from .forms import PostForm,GiveForm,WantForm
 from django.shortcuts import redirect
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views import generic
 
-def post_list(request):
-    posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('published_date')
-    return render(request, 'sharesite/post_list.html', {'posts': posts})
+
+class PostListView(LoginRequiredMixin, generic.ListView):
+    model = Post
+    template_name = 'post_list.html'
+    paginate_by = 2
 
 def give_list(request):
     gives = Give.objects.filter(published_date__lte=timezone.now()).order_by('published_date')

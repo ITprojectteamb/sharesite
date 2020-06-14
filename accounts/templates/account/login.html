@@ -1,8 +1,6 @@
-
-
 {% block title %}Log In | Sharesite{% endblock %}
 
-{% block active_login %}active{% endblock %}
+{% block active_login %}{% endblock %}
 
 {% block contents %}
 <div class="container">
@@ -19,7 +17,8 @@
                 {% endif %}
 
                 <button class="btn btn-primary" type="submit">ログイン</button>
-                <p><a class="button secondaryAction" href="{% url 'account_reset_password' %}">パスワードを忘れましたか？</a></p>
+                <p><a class="button secondaryAction" href="{% url 'account_reset_password' %}">パスワードを忘れましたか？</a>
+                   <a class="nav-link" href="{% url 'account_signup' %}">Sign Up</a></p>
             </form>
         </div>
     </div>
