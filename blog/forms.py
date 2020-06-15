@@ -1,7 +1,7 @@
 from django import forms
 from django.core.mail import EmailMessage
 
-from .models import Post,Give,Want
+from .models import Post,Give,Want,Profile
 
 class PostForm(forms.ModelForm):
 
@@ -59,4 +59,15 @@ class WantForm(forms.ModelForm):
 
     class Meta:
         model = Want
+        fields = ('title', 'text',)
+
+
+##################################################################
+#ここから先追加箇所＃
+##################################################################
+
+class ProfileForm(forms.ModelForm):
+
+    class Meta:
+        model = Profile
         fields = ('title', 'text',)
