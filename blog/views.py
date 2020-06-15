@@ -14,10 +14,6 @@ class PostListView(LoginRequiredMixin, generic.ListView):
     template_name = 'post_list.html'
     paginate_by = 2
 
-    def get_queryset(self):
-        posts = RequestContext(request, {'gives':gives, 'wants':wants})
-        return posts
-
 class GiveListView(LoginRequiredMixin, generic.ListView):
     model = Give
     template_name = 'give_list.html'

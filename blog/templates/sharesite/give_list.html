@@ -2,7 +2,7 @@
 
 {% block content %}
 
-    {% for give in gives %}
+    {% for give in give_list %}
     <div>
         <h2><a href="{% url 'give_detail' pk=give.pk %}">{{ give.title }}</a></h2>
         <p>{{ give.text|linebreaksbr }}</p>
