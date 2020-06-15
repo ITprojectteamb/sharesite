@@ -1,10 +1,10 @@
 {% extends 'sharesite/base.html' %}
 
 {% block content %}
-{% for give in gives %}
-        <div>
-<h2><a href="{% url 'give_detail' pk=give.pk %}">{{ give.title }}</a></h2>
-<p>{{ give.text|linebreaksbr }}</p>
-<div>
+    {% for give in gives %}
+    <div>
+        <h2><a href="{% url 'give_detail' pk=give.pk %}">{{ give.title }}</a></h2>
+        <p>{{ give.text|linebreaksbr }}</p>
+    <div>
     {% endfor %}
 {% endblock %}
