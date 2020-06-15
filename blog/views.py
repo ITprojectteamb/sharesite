@@ -14,13 +14,27 @@ class PostListView(LoginRequiredMixin, generic.ListView):
     template_name = 'post_list.html'
     paginate_by = 2
 
-def give_list(request):
-    gives = Give.objects.filter(published_date__lte=timezone.now()).order_by('published_date')
-    return render(request, 'sharesite/give_list.html', {'gives': gives})
+    def get_queryset(self):
+        posts = RequestContext(request, {'gives':gives, 'wants':wants})
+        return posts
 
-def want_list(request):
-    wants = Want.objects.filter(published_date__lte=timezone.now()).order_by('published_date')
-    return render(request, 'sharesite/want_list.html', {'wants': wants})
+class GiveListView(LoginRequiredMixin, generic.ListView):
+    model = Give
+    template_name = 'give_list.html'
+    paginate_by = 3
+    
+    def get_queryset(self):
+        gives = Give.objects.order_by('-published_date')
+        return gives
+
+class WantListView(LoginRequiredMixin, generic.ListView):
+    model = Want
+    template_name = 'want_list.html'
+    paginate_by = 3
+    
+    def get_queryset(self):
+        wants = Want.objects.order_by('-published_date')
+        return wants
 
 def give_new(request):
     if request.method == "POST":
