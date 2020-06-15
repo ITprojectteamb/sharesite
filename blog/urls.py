@@ -10,5 +10,10 @@ urlpatterns = [
     path('profilenew/', views.profile_new, name='profile_new'),
     path('give<int:pk>/', views.give_detail, name='give_detail'),
     path('want<int:pk>/', views.want_detail, name='want_detail'),
-    
+
+##################################################################
+#ここから先追加箇所＃
+##################################################################
+
+    path('mypage/', views.mypage, name='mypage'),
 ]

@@ -1,0 +1,8 @@
+{% extends 'sharesite/base.html' %}
+
+{% block content %}
+    {% for profile in profiles %}
+        <h2>{{ profile.title }}</a></h2>
+        <p>{{ profile.text|linebreaksbr }}</p>
+    {% endfor %}
+{% endblock %}

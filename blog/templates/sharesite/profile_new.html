@@ -1,6 +1,13 @@
 {% extends 'sharesite/base.html' %}
 
 {% block content %}
+
+<form method="POST" class="profile_form">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit">編集完了</button>
+</form>
+
 <style>
     form {
       /* フォームをページの中央に置く */

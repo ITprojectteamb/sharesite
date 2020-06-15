@@ -1,8 +1,8 @@
 from django.shortcuts import render
 from django.utils import timezone
-from .models import Post,Give,Want
+from .models import Post,Give,Want,Profile
 from django.shortcuts import render, get_object_or_404
-from .forms import PostForm,GiveForm,WantForm
+from .forms import PostForm,GiveForm,WantForm,ProfileForm
 from django.shortcuts import redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -62,19 +62,6 @@ def want_new(request):
         form = WantForm()
     return render(request, 'sharesite/want_new.html', {'form': form})
 
-def profile_new(request):
-    if request.method == "POST":
-        form = PostForm(request.POST)
-        if form.is_valid():
-            post = form.save(commit=False)
-            post.author = request.user
-            post.published_date = timezone.now()
-            post.save()
-            return redirect('profile_new', pk=post.pk)
-    else:
-        form = PostForm()
-    return render(request, 'sharesite/profile_new.html', {'form': form})
-
 def give_edit(request, pk):
     post = get_object_or_404(Post, pk=pk)
     if request.method == "POST":
@@ -110,3 +97,25 @@ def want_detail(request, pk):
 def give_detail(request, pk):
     give = get_object_or_404(Give, pk=pk)
     return render(request, 'sharesite/give_detail.html', {'give': give})
+
+
+##################################################################
+#ここから先追加箇所＃
+##################################################################
+
+def profile_new(request):
+    if request.method == "POST":
+        form = ProfileForm(request.POST)
+        if form.is_valid():
+            profile = form.save(commit=False)
+            profile.author = request.user
+            profile.published_date = timezone.now()
+            profile.save()
+            return redirect('mypage')
+    else:
+        form = ProfileForm()
+    return render(request, 'sharesite/profile_new.html', {'form': form})
+
+def mypage(request):
+    profiles = Profile.objects.filter(author__lte=request.user)
+    return render(request, 'sharesite/mypage.html', {'profiles': profiles })
