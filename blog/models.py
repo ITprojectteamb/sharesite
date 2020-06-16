@@ -17,20 +17,6 @@ class Post(models.Model):
     def __str__(self):
         return self.title
 
-class Give(models.Model):
-    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    title = models.CharField(max_length=200)
-    text = models.TextField()
-    created_date = models.DateTimeField(default=timezone.now)
-    published_date = models.DateTimeField(blank=True, null=True)
-
-    def publish(self):
-        self.published_date = timezone.now()
-        self.save()
-
-    def __str__(self):
-        return self.title
-
 class Want(models.Model):
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     title = models.CharField(max_length=200)
@@ -87,7 +73,7 @@ class Profile(models.Model):
         return self.name
 
 
-class Give_info(models.Model):
+class Give(models.Model):
     give_id = models.CharField(max_length=7)
     give_name = models.CharField('GIVEアイテム名称',max_length=30)
     item_id = models.CharField(max_length=7)
@@ -97,6 +83,7 @@ class Give_info(models.Model):
     open_date = models.DateTimeField('公開日時',blank=True, null=True)
     final_update_time = models.DateTimeField('更新日時',default=timezone.now,) 
     delite_flug =  models.BooleanField('論理削除フラグ', default=False)
+    photo = models.ImageField(verbose_name='写真', blank=True, null=True)
     
     def __str__(self):
         return self.give_name
@@ -124,6 +111,7 @@ class Want_info(models.Model):
     open_date = models.DateTimeField('公開日時',blank=True, null=True)
     final_update_time = models.DateTimeField('更新日時',default=timezone.now,) 
     delite_flug =  models.BooleanField('論理削除フラグ', default=False)    
+    photo = models.ImageField(verbose_name='写真1', blank=True, null=True)
 
     def __str__(self):
         return self.want_name

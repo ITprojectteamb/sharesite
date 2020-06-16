@@ -1,12 +1,14 @@
 from django.shortcuts import render
 from django.utils import timezone
-from .models import  Post,Give,Want,Profile,Item,Employee,Give_info,Give_comment,Want_info,Want_comment
+from .models import  Post,Give,Want,Profile,Item,Employee,Give_comment,Want_info,Want_comment
 from django.shortcuts import render, get_object_or_404
-from .forms import PostForm,GiveForm,WantForm,ProfileForm
+from .forms import PostForm,GiveCreateForm,WantForm,ProfileForm
 from django.shortcuts import redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views import generic
+from django.urls import reverse_lazy
+from django.contrib import messages
 
 
 class PostListView(LoginRequiredMixin, generic.ListView):
@@ -14,13 +16,13 @@ class PostListView(LoginRequiredMixin, generic.ListView):
     template_name = 'post_list.html'
     paginate_by = 2
 
- class GiveListView(LoginRequiredMixin, generic.ListView):
+class GiveListView(LoginRequiredMixin, generic.ListView):
     model = Give
     template_name = 'give_list.html'
     paginate_by = 6
     
     def get_queryset(self):
-        gives = Give_info.objects.order_by('-open_date')
+        gives = Give.objects.order_by('-open_date')
         return gives
 
 class WantListView(LoginRequiredMixin, generic.ListView):
@@ -33,18 +35,22 @@ class WantListView(LoginRequiredMixin, generic.ListView):
         return wants
 
 
-def give_new(request):
-    if request.method == "POST":
-        form = GiveForm(request.POST)
-        if form.is_valid():
-            give = form.save(commit=False)
-            give.author = request.user
-            give.published_date = timezone.now()
-            give.save()
-            return redirect('give_list')            
-    else:
-        form = GiveForm()
-    return render(request, 'sharesite/give_new.html', {'form': form})
+class GiveCreateView(LoginRequiredMixin, generic.CreateView):
+    model = Give
+    template_name = 'give_new.html'
+    form_class = GiveCreateForm
+    success_url = reverse_lazy('give_list')
+
+    def form_valid(self, form):
+        give = form.save(commit=False)
+        give.user = self.request.user
+        give.save()
+        messages.success(self.request, '品物を登録しました。')
+        return super().form_valid(form)
+
+    def form_invalid(self, form):
+        messages.error(self.request, "品物が登録できませんできた。")
+        return super().form_invalid(form)
 
 def want_new(request):
     if request.method == "POST":
@@ -91,10 +97,9 @@ def want_detail(request, pk):
     want = get_object_or_404(Want, pk=pk)
     return render(request, 'sharesite/want_detail.html', {'want': want})
 
-def give_detail(request, pk):
-    give = get_object_or_404(Give_info, pk=pk)
-    return render(request, 'sharesite/give_detail.html', {'give': give})
-
+class GiveDetailView(LoginRequiredMixin, generic.DetailView):
+    model = Give
+    template_name = 'give_detail.html'
 
 ##################################################################
 #ここから先追加箇所＃
@@ -107,6 +112,7 @@ def profile_new(request):
             profile = form.save(commit=False)
             profile.author = request.user
             profile.published_date = timezone.now()
+            profile.photo = request.FILES['photo']
             profile.save()
             return redirect('mypage')
     else:

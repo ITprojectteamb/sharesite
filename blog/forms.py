@@ -1,7 +1,7 @@
 from django import forms
 from django.core.mail import EmailMessage
 
-from .models import Post,Give,Want,Profile,Item,Employee,Give_info,Give_comment,Want_info,Want_comment
+from .models import Post,Give,Want,Profile,Item,Employee,Give_comment,Want_info,Want_comment
 
 class PostForm(forms.ModelForm):
 
@@ -49,11 +49,6 @@ class InquiryForm(forms.Form):
         message = EmailMessage(subject=subject, body=message, from_email=from_email, to=to_list, cc=cc_list)
         message.send()
 
-class GiveForm(forms.ModelForm):
-
-    class Meta:
-        model = Give_info
-        fields = ('give_id','give_name','item_id', 'delivery_infomation','give_reason')
 
 class WantForm(forms.ModelForm):
 
@@ -71,3 +66,13 @@ class ProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
         fields =('name','mail_address','introduction',)
+
+class GiveCreateForm(forms.ModelForm):
+    class Meta:
+        model = Give
+        fields = ('give_name', 'delivery_infomation', 'give_reason', 'photo')
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field in self.fields.values():
+            field.widget.attrs['class'] = 'form-control'
