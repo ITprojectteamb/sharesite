@@ -14,7 +14,7 @@ class PostListView(LoginRequiredMixin, generic.ListView):
     template_name = 'post_list.html'
     paginate_by = 2
 
-class GiveListView(LoginRequiredMixin, generic.ListView):
+ class GiveListView(LoginRequiredMixin, generic.ListView):
     model = Give
     template_name = 'give_list.html'
     paginate_by = 6
@@ -40,7 +40,7 @@ def give_new(request):
             give.author = request.user
             give.published_date = timezone.now()
             give.save()
-            return redirect('give_list')
+            return redirect('give_list')            
     else:
         form = GiveForm()
     return render(request, 'sharesite/give_new.html', {'form': form})
