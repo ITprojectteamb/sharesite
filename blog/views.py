@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.utils import timezone
-from .models import Post,Give,Want,Profile
+from .models import  Post,Give,Want,Profile,Item,Employee,Give_info,Give_comment,Want_info,Want_comment
 from django.shortcuts import render, get_object_or_404
 from .forms import PostForm,GiveForm,WantForm,ProfileForm
 from django.shortcuts import redirect
@@ -15,12 +15,12 @@ class PostListView(LoginRequiredMixin, generic.ListView):
     paginate_by = 2
 
 class GiveListView(LoginRequiredMixin, generic.ListView):
-    model = Give
+    model = Give_info
     template_name = 'give_list.html'
     paginate_by = 6
     
     def get_queryset(self):
-        gives = Give.objects.order_by('-published_date')
+        gives = Give_info.objects.order_by('-open_date')
         return gives
 
 class WantListView(LoginRequiredMixin, generic.ListView):
@@ -31,6 +31,7 @@ class WantListView(LoginRequiredMixin, generic.ListView):
     def get_queryset(self):
         wants = Want.objects.order_by('-published_date')
         return wants
+
 
 def give_new(request):
     if request.method == "POST":
@@ -91,7 +92,7 @@ def want_detail(request, pk):
     return render(request, 'sharesite/want_detail.html', {'want': want})
 
 def give_detail(request, pk):
-    give = get_object_or_404(Give, pk=pk)
+    give = get_object_or_404(Give_info, pk=pk)
     return render(request, 'sharesite/give_detail.html', {'give': give})
 
 
