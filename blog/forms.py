@@ -1,7 +1,7 @@
 from django import forms
 from django.core.mail import EmailMessage
 
-from .models import Post,Give,Want,Profile
+from .models import Post,Give,Want,Profile,Item,Employee,Give_info,Give_comment,Want_info,Want_comment
 
 class PostForm(forms.ModelForm):
 
@@ -52,8 +52,8 @@ class InquiryForm(forms.Form):
 class GiveForm(forms.ModelForm):
 
     class Meta:
-        model = Give
-        fields = ('title', 'text',)
+        model = Give_info
+        fields = ('give_id','give_name','item_id', 'delivery_infomation','give_reason')
 
 class WantForm(forms.ModelForm):
 
