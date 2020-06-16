@@ -17,7 +17,7 @@ class PostListView(LoginRequiredMixin, generic.ListView):
 class GiveListView(LoginRequiredMixin, generic.ListView):
     model = Give
     template_name = 'give_list.html'
-    paginate_by = 3
+    paginate_by = 6
     
     def get_queryset(self):
         gives = Give.objects.order_by('-published_date')

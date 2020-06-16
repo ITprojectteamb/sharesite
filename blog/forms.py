@@ -70,4 +70,4 @@ class ProfileForm(forms.ModelForm):
 
     class Meta:
         model = Profile
-        fields = ('title', 'text',)
+        fields =('name','mail_address','introduction',)
