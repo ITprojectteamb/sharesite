@@ -14,35 +14,58 @@
         <link href="{% static 'css/mdb.min.css' %}" rel="stylesheet">
     </head>
     <body>
-        <div>
-            <h1><a href="/">SHARE SITE</a></h1>
-            <a href="{% url 'profile_new' %}"><span class="glyphicon glyphicon-user"></span></a>
-            <a href="{% url 'give_new' %}"><span class="glyphicon glyphicon-leaf"></span></a>
-            <a href="{% url 'want_new' %}"><span class="glyphicon glyphicon-eye-open"></span></a>
-            
-        </div>
-        <ul class="navbar-nav ml-auto">
-            {% if user.is_authenticated %}
+        <header>
+<!---->
+<nav class="navbar navbar-expand-lg navbar-dark default-color">
+    <a class="navbar-brand" href="/"><strong class="header-title">SKY SHARE </strong></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'give_new' %}">あげます！</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'want_new' %}">ほしいです！</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'profile_new' %}">プロフィール<span class="sr-only">(current)</span></a>
+          </li>
+        {% if user.is_authenticated %}
               <li class="nav-item">
-                  <a class="nav-link" href="{% url 'account_logout' %}">Log Out</a>
+                  <a class="nav-link" href="{% url 'account_logout' %}">ログアウト</a>
               </li>
             {% else %}
               <li class="nav-item {% block active_signup %}{% endblock %}">
-                  <a class="nav-link" href="{% url 'account_signup' %}">Sign Up</a>
+                  <a class="nav-link" href="{% url 'account_signup' %}">登録</a>
               </li>
               <li class="nav-item {% block active_login %}{% endblock %}">
-                  <a class="nav-link" href="{% url 'account_login' %}">Log In</a>
+                  <a class="nav-link" href="{% url 'account_login' %}">ログイン</a>
               </li>
             {% endif %}
-        </ul>
-        <div>
-            <div>
+      </ul>
+    </div>
+  </nav>
+
+<!---->
+    </header>
                 <div>   
                 {% block content %}
                 {% endblock %}
                 </div>
-            </div>
-        </div>
+
+
+               <!-- Footer -->
+<footer class="footer">
+
+    <!-- Copyright -->
+    <div class="footer-copyright text-center footer-text">sky share made by teamB</div>
+    <!-- Copyright -->
+  
+  </footer>
+  <!-- Footer -->
         <!-- JQuery -->
 <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
 

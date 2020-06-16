@@ -1,0 +1,44 @@
+body{
+    font-family:'ãƒ¡ã‚¤ãƒªã‚ª', 'Meiryo', sans-serif;
+    background-color: #F5F5F5;
+    position: relative;
+  }
+
+.header-title {
+    line-height: 44px;
+    font-size: 30px;
+}
+
+.navbar{
+    height: 100px;
+}
+
+.nav-link{
+    font-size:20px;
+}
+
+.footer{
+    padding:40px 40px;
+    position: absolute;
+    bottom: -130px; 
+    width:100%;
+    background-color: #2bbbad;
+}
+
+
+
+.footer-text{
+    color:white;
+    font-size: 18pt;
+        }
+.pagination-container{
+    display: flex;
+    justify-content: center;
+}
+
+.pagination {
+    text-align: center;
+}
+.page-item {
+    display: inline-block;
+}
