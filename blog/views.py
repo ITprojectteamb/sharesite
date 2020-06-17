@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.utils import timezone
 from .models import  Post,Give,Want,Profile,Item,Employee,Give_comment,Want_info,Want_comment
 from django.shortcuts import render, get_object_or_404
-from .forms import PostForm,GiveCreateForm,WantForm,ProfileForm
+from .forms import PostForm,GiveCreateForm,WantForm,ProfileForm,GiveCommentForm
 from django.shortcuts import redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -122,3 +122,22 @@ def profile_new(request):
 def mypage(request):
     profiles = Profile.objects.filter(author__lte=request.user)
     return render(request, 'sharesite/mypage.html', {'profiles': profiles })
+
+def add_comment_to_give(request, pk):
+    give = get_object_or_404(Give, pk=pk)
+    if request.method == "POST":
+        form = GiveCommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.give = give
+            comment.save()
+            return redirect('give_detail', pk=give.pk)
+    else:
+        form = GiveCommentForm()
+    return render(request, 'sharesite/add_comment_to_give.html', {'form': form})
+
+@login_required
+def give_comment_remove(request, pk):
+    comment = get_object_or_404(Give_comment, pk=pk)
+    comment.delete()
+    return redirect('give_detail', pk=comment.give.pk)

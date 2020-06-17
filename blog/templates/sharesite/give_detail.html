@@ -66,4 +66,20 @@
 
 
     </div>
-</div>{% endblock %}
+</div>
+<hr>
+<a class="btn btn-default" href="{% url 'add_comment_to_give' pk=give.pk %}">コメントする</a>
+{% for comment in give.give_comments.all %}
+    <div class="comment">
+        <div class="date">{{ comment.created_date }}
+            {% if not comment.approved_comment %}
+                <a class="btn btn-default" href="{% url 'give_comment_remove' pk=comment.pk %}"><span class="glyphicon glyphicon-remove"></span></a>
+            {% endif %}
+        </div>
+        <strong>{{ comment.author }}</strong>
+        <p>{{ comment.text|linebreaks }}</p>
+    </div>
+{% empty %}
+    <p>コメントはまだありません</p>
+{% endfor %}
+{% endblock %}

@@ -42,7 +42,7 @@ class Want(models.Model):
 
 class Item(models.Model):
     item_id = models.CharField(max_length=7)
-    mail_address = models.EmailField('メールアドレス')
+    mail_address = models.EmailField('メールアドレス',null=True)
     item_name = models.CharField('アイテム名称',max_length=20)
     item_detail = models.TextField('アイテム詳細',max_length=200,blank=True,null=True)
     attribute_list= (
@@ -57,7 +57,7 @@ class Item(models.Model):
 
 class Employee(models.Model):
     name = models.CharField('社員名',max_length=30)
-    mail_address = models.EmailField('メールアドレス')
+    mail_address = models.EmailField('メールアドレス',null=True)
     passward = models.CharField('パスワード',max_length=20)
     
     def __str__(self):
@@ -65,8 +65,8 @@ class Employee(models.Model):
 
 class Profile(models.Model):
     name = models.CharField('社員名',max_length=30)
-    mail_address = models.EmailField('メールアドレス')
-    introduction = models.CharField('自己紹介',max_length=200)
+    mail_address = models.EmailField('メールアドレス',null=True)
+    introduction = models.CharField('自己紹介',max_length=200,null=True)
     item_image = models.ImageField('プロフィール画像',null=True)
 
     def __str__(self):
@@ -89,19 +89,23 @@ class Give(models.Model):
         return self.give_name
 
 class Give_comment(models.Model):
-    give_comment_id = models.CharField(max_length=7)
-    give_id = models.CharField(max_length=7)
-    give_comment = models.CharField('GIVEコメント',max_length=200)
-    employee_name = models.CharField('社員名',max_length=30)
-    register_date = models.DateTimeField('登録日時',default=timezone.now)
+    give = models.ForeignKey('blog.Give', on_delete=models.CASCADE, related_name='give_comments')
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    text = models.TextField('GIVEコメント',null=True)
+    created_date = models.DateTimeField(default=timezone.now)
+    approved_comment = models.BooleanField(default=False)
     delite_flug =  models.BooleanField('論理削除フラグ', default=False)
-    
+
+    def approve(self):
+        self.approved_comment = True
+        self.save()
+
     def __str__(self):
-        return self.give_comment_id
+        return self.text
 
 class Want_info(models.Model):
     want_id = models.CharField(max_length=7)
-    mail_address = models.EmailField('メールアドレス')
+    mail_address = models.EmailField('メールアドレス',null=True)
     want_name = models.CharField('WANTタイトル',max_length=30)
     introduction = models.CharField('WANT詳細',max_length=200)
     item_image = models.ImageField(null=True)

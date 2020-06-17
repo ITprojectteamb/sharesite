@@ -76,3 +76,9 @@ class GiveCreateForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         for field in self.fields.values():
             field.widget.attrs['class'] = 'form-control'
+
+class GiveCommentForm(forms.ModelForm):
+
+    class Meta:
+        model = Give_comment
+        fields = ('author', 'text',)
