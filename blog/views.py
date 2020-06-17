@@ -145,7 +145,6 @@ def give_comment_remove(request, pk):
     comment.delete()
     return redirect('give_detail', pk=comment.give.pk)
 
-
 def add_comment_to_want(request, pk):
     want = get_object_or_404(Want, pk=pk)
     if request.method == "POST":
@@ -163,4 +162,31 @@ def add_comment_to_want(request, pk):
 def want_comment_remove(request, pk):
     comment = get_object_or_404(Want_comment, pk=pk)
     comment.delete()
-    return redirect('want_detail', pk=comment.want.pk)
+    return redirect('want_detail', pk=comment.want.pk)  
+  
+
+class GiveDeleteView(LoginRequiredMixin, generic.DeleteView):
+    model = Give
+    template_name = 'give_delete.html'
+    success_url = reverse_lazy('give_list')
+
+    def delete(self, request, *args, **kwargs):
+        messages.success(self.request, "投稿を削除しました。")
+        return super().delete(request, *args, **kwargs)
+
+class GiveUpdateView(LoginRequiredMixin, generic.UpdateView):
+    model = Give
+    template_name = 'give_update.html'
+    form_class = GiveCreateForm
+
+    def get_success_url(self):
+        return reverse_lazy('give_detail', kwargs={'pk': self.kwargs['pk']})
+
+    def form_valid(self, form):
+        messages.success(self.request, '投稿を更新しました。')
+        return super().form_valid(form)
+
+    def form_invalid(self, form):
+        messages.error(self.request, "投稿を更新できませんでした。")
+        return super().form_invalid(form)
+

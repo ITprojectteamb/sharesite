@@ -15,5 +15,7 @@ urlpatterns = [
     path('give/comment/<int:pk>/remove/', views.give_comment_remove, name='give_comment_remove'),
     path('want/<int:pk>/comment/', views.add_comment_to_want, name='add_comment_to_want'),
     path('want/comment/<int:pk>/remove/', views.want_comment_remove, name='want_comment_remove'),
-
+    path('comment/<int:pk>/remove/', views.give_comment_remove, name='give_comment_remove'),
+    path('give-delete/<int:pk>/', views.GiveDeleteView.as_view(), name="give_delete"),
+    path('give-update/<int:pk>/', views.GiveUpdateView.as_view(), name="give_update"),
 ]
