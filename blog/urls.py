@@ -13,4 +13,6 @@ urlpatterns = [
     path('mypage/', views.mypage, name='mypage'),
     path('give/<int:pk>/comment/', views.add_comment_to_give, name='add_comment_to_give'),
     path('comment/<int:pk>/remove/', views.give_comment_remove, name='give_comment_remove'),
+    path('give-delete/<int:pk>/', views.GiveDeleteView.as_view(), name="give_delete"),
+    path('give-update/<int:pk>/', views.GiveUpdateView.as_view(), name="give_update"),
 ]
