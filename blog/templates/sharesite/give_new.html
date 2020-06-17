@@ -1,10 +1,18 @@
 {% extends 'sharesite/base.html' %}
 
 {% block content %}
-<form method="POST" class="give_form">
-{% csrf_token %}
-{{ form.as_p }}
-<button type="submit">あげる</button>
-</form>
 
+<div class="container">
+    <div class="row">
+        <div class="my-div-style w-100">
+            <form method="POST" enctype='multipart/form-data'>
+                {% csrf_token %}
+                <table class="table">
+                    {{ form.as_table }}
+                </table>
+                <button class="btn btn-primary" type="submit">作成</button>
+            </form>
+        </div>
+    </div>
+</div>
 {% endblock %}

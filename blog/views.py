@@ -1,12 +1,14 @@
 from django.shortcuts import render
 from django.utils import timezone
-from .models import  Post,Give,Want,Profile,Item,Employee,Give_info,Give_comment,Want_info,Want_comment
+from .models import  Post,Give,Want,Profile,Item,Employee,Give_comment,Want_info,Want_comment
 from django.shortcuts import render, get_object_or_404
-from .forms import PostForm,GiveForm,WantForm,ProfileForm
+from .forms import PostForm,GiveCreateForm,WantForm,ProfileForm,GiveCommentForm
 from django.shortcuts import redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views import generic
+from django.urls import reverse_lazy
+from django.contrib import messages
 
 
 class PostListView(LoginRequiredMixin, generic.ListView):
@@ -15,12 +17,12 @@ class PostListView(LoginRequiredMixin, generic.ListView):
     paginate_by = 2
 
 class GiveListView(LoginRequiredMixin, generic.ListView):
-    model = Give_info
+    model = Give
     template_name = 'give_list.html'
     paginate_by = 6
     
     def get_queryset(self):
-        gives = Give_info.objects.order_by('-open_date')
+        gives = Give.objects.order_by('-open_date')
         return gives
 
 class WantListView(LoginRequiredMixin, generic.ListView):
@@ -33,18 +35,22 @@ class WantListView(LoginRequiredMixin, generic.ListView):
         return wants
 
 
-def give_new(request):
-    if request.method == "POST":
-        form = GiveForm(request.POST)
-        if form.is_valid():
-            give = form.save(commit=False)
-            give.author = request.user
-            give.published_date = timezone.now()
-            give.save()
-            return redirect('give_list')
-    else:
-        form = GiveForm()
-    return render(request, 'sharesite/give_new.html', {'form': form})
+class GiveCreateView(LoginRequiredMixin, generic.CreateView):
+    model = Give
+    template_name = 'give_new.html'
+    form_class = GiveCreateForm
+    success_url = reverse_lazy('give_list')
+
+    def form_valid(self, form):
+        give = form.save(commit=False)
+        give.user = self.request.user
+        give.save()
+        messages.success(self.request, '品物を登録しました。')
+        return super().form_valid(form)
+
+    def form_invalid(self, form):
+        messages.error(self.request, "品物が登録できませんできた。")
+        return super().form_invalid(form)
 
 def want_new(request):
     if request.method == "POST":
@@ -91,10 +97,9 @@ def want_detail(request, pk):
     want = get_object_or_404(Want, pk=pk)
     return render(request, 'sharesite/want_detail.html', {'want': want})
 
-def give_detail(request, pk):
-    give = get_object_or_404(Give_info, pk=pk)
-    return render(request, 'sharesite/give_detail.html', {'give': give})
-
+class GiveDetailView(LoginRequiredMixin, generic.DetailView):
+    model = Give
+    template_name = 'give_detail.html'
 
 ##################################################################
 #ここから先追加箇所＃
@@ -107,6 +112,7 @@ def profile_new(request):
             profile = form.save(commit=False)
             profile.author = request.user
             profile.published_date = timezone.now()
+            profile.photo = request.FILES['photo']
             profile.save()
             return redirect('mypage')
     else:
@@ -116,3 +122,22 @@ def profile_new(request):
 def mypage(request):
     profiles = Profile.objects.filter(author__lte=request.user)
     return render(request, 'sharesite/mypage.html', {'profiles': profiles })
+
+def add_comment_to_give(request, pk):
+    give = get_object_or_404(Give, pk=pk)
+    if request.method == "POST":
+        form = GiveCommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.give = give
+            comment.save()
+            return redirect('give_detail', pk=give.pk)
+    else:
+        form = GiveCommentForm()
+    return render(request, 'sharesite/add_comment_to_give.html', {'form': form})
+
+@login_required
+def give_comment_remove(request, pk):
+    comment = get_object_or_404(Give_comment, pk=pk)
+    comment.delete()
+    return redirect('give_detail', pk=comment.give.pk)
