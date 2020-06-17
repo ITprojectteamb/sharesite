@@ -17,29 +17,6 @@ class Post(models.Model):
     def __str__(self):
         return self.title
 
-class Want(models.Model):
-    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    title = models.CharField(max_length=200)
-    text = models.TextField()
-    created_date = models.DateTimeField(default=timezone.now)
-    published_date = models.DateTimeField(blank=True, null=True)
-
-    def publish(self):
-        self.published_date = timezone.now()
-        self.save()
-
-    def __str__(self):
-        return self.title
-
-
-##################################################################
-#ここから先追加箇所＃
-##################################################################
-
-##################################################################
-#ここから高橋追加＃
-##################################################################
-
 class Item(models.Model):
     item_id = models.CharField(max_length=7)
     mail_address = models.EmailField('メールアドレス',null=True)
@@ -103,30 +80,32 @@ class Give_comment(models.Model):
     def __str__(self):
         return self.text
 
-class Want_info(models.Model):
+class Want(models.Model):
     want_id = models.CharField(max_length=7)
-    mail_address = models.EmailField('メールアドレス',null=True)
-    want_name = models.CharField('WANTタイトル',max_length=30)
-    introduction = models.CharField('WANT詳細',max_length=200)
-    item_image = models.ImageField(null=True)
+    want_name = models.CharField('WANTアイテム名称',max_length=30)
+    item_id = models.CharField(max_length=7)
     delivery_infomation = models.TextField('引き渡し情報',max_length=200,null=True)
-    give_reason = models.TextField('あげたい理由',max_length=200,null=True)
+    want_reason = models.TextField('ほしい理由',max_length=200,null=True)
     register_date = models.DateTimeField('登録日時',default=timezone.now)
     open_date = models.DateTimeField('公開日時',blank=True, null=True)
     final_update_time = models.DateTimeField('更新日時',default=timezone.now,) 
-    delite_flug =  models.BooleanField('論理削除フラグ', default=False)    
-    photo = models.ImageField(verbose_name='写真1', blank=True, null=True)
-
+    delite_flug =  models.BooleanField('論理削除フラグ', default=False)
+    photo = models.ImageField(verbose_name='イメージ写真', blank=True, null=True)
+    
     def __str__(self):
         return self.want_name
 
 class Want_comment(models.Model):
-    want_comment_id = models.CharField(max_length=7)
-    want_id = models.CharField(max_length=7)
-    want_comment = models.CharField('WANTコメント',max_length=200)
-    employee_name = models.CharField('社員名',max_length=30)
-    register_date = models.DateTimeField('登録日時',default=timezone.now)
+    want = models.ForeignKey('blog.Want', on_delete=models.CASCADE, related_name='want_comments')
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    text = models.TextField('WANTコメント',null=True)
+    created_date = models.DateTimeField(default=timezone.now)
+    approved_comment = models.BooleanField(default=False)
     delite_flug =  models.BooleanField('論理削除フラグ', default=False)
-    
+
+    def approve(self):
+        self.approved_comment = True
+        self.save()
+
     def __str__(self):
-        return self.give_comment_id
+        return self.text
