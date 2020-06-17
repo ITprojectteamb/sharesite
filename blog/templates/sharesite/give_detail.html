@@ -2,6 +2,8 @@
 
 {% block content %}
 
+    <a class="btn btn-default" href="{% url 'give_edit' pk=give.pk %}"><span class="glyphicon glyphicon-pencil"></span></a>
+    <a class="btn btn-default" href="{% url 'give_remove' pk=give.pk %}"><span class="glyphicon glyphicon-remove"></span></a>
     <h2>{{ give.give_name }}</h2>
     <h2>{{ give.give_reason }}</h2>
     

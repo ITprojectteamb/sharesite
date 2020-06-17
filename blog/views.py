@@ -60,14 +60,14 @@ def want_new(request):
     return render(request, 'sharesite/want_new.html', {'form': form})
 
 def give_edit(request, pk):
-    post = get_object_or_404(Post, pk=pk)
+    give = get_object_or_404(Give, pk=pk)
     if request.method == "POST":
-        form = PostForm(request.POST, instance=post)
+        form = GiveForm(request.POST, instance=give)
         if form.is_valid():
-            post = form.save(commit=False)
-            post.author = request.user
-            post.published_date = timezone.now()
-            post.save()
+            give = form.save(commit=False)
+            give.author = request.user
+            give.published_date = timezone.now()
+            give.save()
             return redirect('give_detail', pk=post.pk)
     else:
         form = PostForm(instance=post)
@@ -116,3 +116,8 @@ def profile_new(request):
 def mypage(request):
     profiles = Profile.objects.filter(author__lte=request.user)
     return render(request, 'sharesite/mypage.html', {'profiles': profiles })
+
+def give_remove(request, pk):
+    give = get_object_or_404(Give, pk=pk)
+    give.delete()
+    return redirect('give_list')

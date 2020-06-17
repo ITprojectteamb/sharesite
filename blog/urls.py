@@ -16,4 +16,6 @@ urlpatterns = [
 ##################################################################
 
     path('mypage/', views.mypage, name='mypage'),
+    path('give/<int:pk>/edit/', views.give_edit, name='give_edit'),
+    path('give/remove/<int:pk>/', views.give_remove, name='give_remove'),
 ]
