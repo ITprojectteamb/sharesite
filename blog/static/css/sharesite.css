@@ -42,3 +42,37 @@ body{
 .page-item {
     display: inline-block;
 }
+
+.post_list{
+    height: 100%;
+    background-image: url('https://mdbootstrap.com/img/Photos/Others/gradient2.png');
+    background-position: center;
+    background-size: cover;
+  }
+  
+  .button_erea{
+    display: flex;
+    justify-content: center;
+    padding:300px 0;
+  }
+  .button_per{
+      display: block;
+      width: 200px;
+      margin: 0 50px!important;
+  }
+
+.footer-text{
+    color:white;
+    font-size: 18pt;
+        }
+.pagination-container{
+    display: flex;
+    justify-content: center;
+}
+
+.pagination {
+    text-align: center;
+}
+.page-item {
+    display: inline-block;
+}
