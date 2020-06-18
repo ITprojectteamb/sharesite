@@ -82,4 +82,6 @@
 {% empty %}
     <p>コメントはまだありません</p>
 {% endfor %}
+<a class="btn btn-success mt-5 mb-3" href="{% url 'want_update' object.pk %}">編集</a>
+<a class="btn btn-danger mt-5 ml-2 mb-3" href="{% url 'want_delete' object.pk %}">削除</a>
 {% endblock %}

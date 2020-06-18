@@ -18,4 +18,6 @@ urlpatterns = [
     path('comment/<int:pk>/remove/', views.give_comment_remove, name='give_comment_remove'),
     path('give-delete/<int:pk>/', views.GiveDeleteView.as_view(), name="give_delete"),
     path('give-update/<int:pk>/', views.GiveUpdateView.as_view(), name="give_update"),
+    path('want-delete/<int:pk>/', views.WantDeleteView.as_view(), name="want_delete"),
+    path('want-update/<int:pk>/', views.WantUpdateView.as_view(), name="want_update"),
 ]

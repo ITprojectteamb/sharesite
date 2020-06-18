@@ -71,14 +71,14 @@ class WantCreateView(LoginRequiredMixin, generic.CreateView):
         return super().form_invalid(form)
 
 def give_edit(request, pk):
-    post = get_object_or_404(Post, pk=pk)
+    give = get_object_or_404(Give, pk=pk)
     if request.method == "POST":
-        form = PostForm(request.POST, instance=post)
+        form = GiveForm(request.POST, instance=give)
         if form.is_valid():
-            post = form.save(commit=False)
-            post.author = request.user
-            post.published_date = timezone.now()
-            post.save()
+            give = form.save(commit=False)
+            give.author = request.user
+            give.published_date = timezone.now()
+            give.save()
             return redirect('give_detail', pk=post.pk)
     else:
         form = PostForm(instance=post)
@@ -190,3 +190,27 @@ class GiveUpdateView(LoginRequiredMixin, generic.UpdateView):
         messages.error(self.request, "投稿を更新できませんでした。")
         return super().form_invalid(form)
 
+class WantDeleteView(LoginRequiredMixin, generic.DeleteView):
+    model = Want
+    template_name = 'want_delete.html'
+    success_url = reverse_lazy('want_list')
+
+    def delete(self, request, *args, **kwargs):
+        messages.success(self.request, "投稿を削除しました。")
+        return super().delete(request, *args, **kwargs)
+
+class WantUpdateView(LoginRequiredMixin, generic.UpdateView):
+    model = Want
+    template_name = 'want_update.html'
+    form_class = WantCreateForm
+
+    def get_success_url(self):
+        return reverse_lazy('want_detail', kwargs={'pk': self.kwargs['pk']})
+
+    def form_valid(self, form):
+        messages.success(self.request, '投稿を更新しました。')
+        return super().form_valid(form)
+
+    def form_invalid(self, form):
+        messages.error(self.request, "投稿を更新できませんでした。")
+        return super().form_invalid(form)
