@@ -44,6 +44,7 @@ body{
 }
 
 .post_list{
+
   height: 100%;
   background-image: url('https://mdbootstrap.com/img/Photos/Others/gradient2.png');
   background-position: center;
@@ -80,3 +81,4 @@ body{
 .green-bg:hover{
   background-color: #c8e6c9;
 }
+
