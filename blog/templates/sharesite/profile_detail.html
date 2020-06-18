@@ -1,0 +1,71 @@
+{% extends 'sharesite/base.html' %}
+{% load static %}
+
+
+{% block content %}
+<div class="container">
+    <div class="my-div-style w-100">
+        
+        <hr>
+        <div class="row">
+            <div class="col-3">
+                <strong>社員名</strong>
+            </div>
+            <div class="col-9">
+                {{ object.name|linebreaksbr }}
+            </div>
+        </div>
+
+        <hr>
+
+        <div class="row">
+            <div class="col-3">
+                <strong>メールアドレス</strong>
+            </div>
+            <div class="col-9">
+                {{ object.mail_address|linebreaksbr }}
+            </div>
+        </div>
+
+        <hr>
+
+        <div class="row">
+            <div class="col-3">
+                <strong>自己紹介</strong>
+            </div>
+            <div class="col-9">
+                {{ object.introduction|linebreaksbr }}
+            </div>
+        </div>
+
+        <hr>
+
+        <div class="row">
+            <div class="col-3">
+                <strong>写真</strong>
+            </div>
+            <div class="col-3">
+                {% if object.photo %}
+                    <img src="{{ object.photo.url }}" width="200" height="200"/>
+                {% endif %}
+            </div>
+            </div>
+        </div>
+    </div>
+</div>
+<hr>
+<a class="btn btn-default" href="{% url 'add_comment_to_profile' pk=profile.pk %}">コメントする</a>
+{% for comment in profile.profile_comments.all %}
+    <div class="comment">
+        <div class="date">{{ comment.created_date }}
+            {% if not comment.approved_comment %}
+                <a class="btn btn-default" href="{% url 'profile_comment_remove' pk=comment.pk %}"><span class="glyphicon glyphicon-remove"></span></a>
+            {% endif %}
+        </div>
+        <strong>{{ comment.author }}</strong>
+        <p>{{ comment.text|linebreaks }}</p>
+    </div>
+{% empty %}
+    <p>コメントはまだありません</p>
+{% endfor %}
+{% endblock %}
