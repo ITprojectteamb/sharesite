@@ -45,10 +45,25 @@ class Profile(models.Model):
     name = models.CharField('社員名',max_length=30)
     mail_address = models.EmailField('メールアドレス',null=True)
     introduction = models.CharField('自己紹介',max_length=200,null=True)
-    item_image = models.ImageField('プロフィール画像',null=True)
+    photo = models.ImageField('プロフィール画像',blank=True,null=True)
 
     def __str__(self):
         return self.name
+
+class Profile_comment(models.Model):
+    profile = models.ForeignKey('blog.Profile', on_delete=models.CASCADE, related_name='profile_comments')
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    text = models.TextField('PROFILEコメント',null=True)
+    created_date = models.DateTimeField(default=timezone.now)
+    approved_comment = models.BooleanField(default=False)
+    delite_flug =  models.BooleanField('論理削除フラグ', default=False)
+
+    def approve(self):
+        self.approved_comment = True
+        self.save()
+
+    def __str__(self):
+        return self.text
 
 
 class Give(models.Model):

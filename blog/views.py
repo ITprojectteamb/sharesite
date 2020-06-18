@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.utils import timezone
 from .models import  Post,Give,Want,Profile,Item,Employee,Give_comment,Want_comment
 from django.shortcuts import render, get_object_or_404
-from .forms import PostForm,GiveCreateForm,WantCreateForm,ProfileForm,GiveCommentForm,WantCommentForm
+from .forms import PostForm,GiveCreateForm,WantCreateForm,ProfileCreateForm,GiveCommentForm,WantCommentForm,ProfileCommentForm
 from django.shortcuts import redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -107,25 +107,37 @@ class WantDetailView(LoginRequiredMixin, generic.DetailView):
     model = Want
     template_name = 'want_detail.html'
 
+class ProfileListView(LoginRequiredMixin, generic.ListView):
+    model = Profile
+    template_name = 'profile_list.html'
+    paginate_by = 6
+    
+    def get_queryset(self):
+        profiles = Profile.objects.all()
+        return profiles
 
-def profile_new(request):
-    if request.method == "POST":
-        form = ProfileForm(request.POST)
-        if form.is_valid():
-            profile = form.save(commit=False)
-            profile.author = request.user
-            profile.published_date = timezone.now()
-            profile.photo = request.FILES['photo']
-            profile.save()
-            return redirect('mypage')
-    else:
-        form = ProfileForm()
-    return render(request, 'sharesite/profile_new.html', {'form': form})
+class ProfileCreateView(LoginRequiredMixin, generic.CreateView):
+    model = Profile
+    template_name = 'profile_new.html'
+    form_class = ProfileCreateForm
+    success_url = reverse_lazy('profile_list')
 
-def mypage(request):
-    profiles = Profile.objects.filter(author__lte=request.user)
-    return render(request, 'sharesite/mypage.html', {'profiles': profiles })
+    def form_valid(self, form):
+        profile = form.save(commit=False)
+        profile.user = self.request.user
+        profile.save()
+        messages.success(self.request, 'プロフィールを登録しました。')
+        return super().form_valid(form)
 
+    def form_invalid(self, form):
+        messages.error(self.request, "プロフィールが登録できませんでした。")
+        return super().form_invalid(form)
+
+class ProfileDetailView(LoginRequiredMixin, generic.DetailView):
+    model = Profile
+    template_name = 'profile_detail.html'
+    
+    
 def add_comment_to_give(request, pk):
     give = get_object_or_404(Give, pk=pk)
     if request.method == "POST":
@@ -157,6 +169,24 @@ def add_comment_to_want(request, pk):
     else:
         form = WantCommentForm()
     return render(request, 'sharesite/add_comment_to_want.html', {'form': form})
+
+def add_comment_to_profile(request, pk):
+    profile = get_object_or_404(Profile, pk=pk)
+    if request.method == "POST":
+        form = ProfileCommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.profile = profile
+            comment.save()
+            return redirect('profile_detail', pk=profile.pk)
+    else:
+        form = ProfileCommentForm()
+    return render(request, 'sharesite/add_comment_to_profile.html', {'form': form})
+
+def profile_comment_remove(request, pk):
+    comment = get_object_or_404(profile_comment, pk=pk)
+    comment.delete()
+    return redirect('profile_detail', pk=comment.profile.pk)
 
 @login_required
 def want_comment_remove(request, pk):
