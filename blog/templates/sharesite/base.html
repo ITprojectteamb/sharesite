@@ -24,15 +24,23 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
+　　　　　
         <li class="nav-item">
-          <a class="nav-link" href="{% url 'give_new' %}">あげます！</a>
+          <a class="nav-link" href="{% url 'give_list' %}">Giveリスト</a>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'want_list' %}">Wantリスト</a>         
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'profile_list' %}">プロフィールリスト<span class="sr-only">(current)</span></a>
+        </li>
+          <li class="nav-item">
+          <a class="nav-link" href="{% url 'give_new' %}">あげたい！</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{% url 'want_new' %}">ほしいです！</a>
+          <a class="nav-link" href="{% url 'want_new' %}">ほしい！</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="{% url 'profile_new' %}">プロフィール<span class="sr-only">(current)</span></a>
-          </li>
+          <a class="nav-link" href="{% url 'profile_new' %}">プロフィール新規作成</a>
+        </li>
         {% if user.is_authenticated %}
               <li class="nav-item">
                   <a class="nav-link" href="{% url 'account_logout' %}">ログアウト</a>
