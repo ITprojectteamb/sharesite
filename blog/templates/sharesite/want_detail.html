@@ -5,7 +5,6 @@
 {% block content %}
 <div class="container">
     <div class="my-div-style w-100">
-        
         <hr>
         <div class="row">
             <div class="col-3">
@@ -13,6 +12,24 @@
             </div>
             <div class="col-9">
                 {{ object.want_name|linebreaksbr }}
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-3">
+                <strong>投稿者</strong>
+            </div>
+            <div class="col-9">
+                {{ object.author }}
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-3">
+                <strong>お急ぎ度</strong>
+            </div>
+            <div class="col-9">
+                {{ object.get_emergency_attribute_display }}
             </div>
         </div>
 
@@ -37,17 +54,6 @@
             </div>
         </div>
 
-        <hr>
-
-        <div class="row">
-            <div class="col-3">
-                <strong>引き渡し情報</strong>
-            </div>
-            <div class="col-9">
-                {{ object.delivery_infomation|linebreaksbr }}
-            </div>
-        </div>
-        
         <hr>
 
         <div class="row">

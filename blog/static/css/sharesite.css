@@ -44,19 +44,41 @@ body{
 }
 
 .post_list{
-    height: 100%;
-    background-image: url('https://mdbootstrap.com/img/Photos/Others/gradient2.png');
-    background-position: center;
-    background-size: cover;
+
+  height: 100%;
+  background-image: url('https://mdbootstrap.com/img/Photos/Others/gradient2.png');
+  background-position: center;
+  background-size: cover;
 }
-  
+
 .button_erea{
-    display: flex;
-    justify-content: center;
-    padding:300px 0;
+  display: flex;
+  justify-content: center;
+  padding:300px 0;
 }
 .button_per{
-      display: block;
-      width: 200px;
-      margin: 0 50px!important;
+    display: block;
+    width: 200px;
+    margin: 0 50px!important;
 }
+
+.emr-bg{
+  border-radius: 5%;
+}
+
+.red-bg{
+  background-color: #ffebee;
+}
+
+.blue-bg{
+  background-color: #e3f2fd;
+}
+
+.green-bg{
+  background-color: #e8f5e9;
+}
+
+.green-bg:hover{
+  background-color: #c8e6c9;
+}
+

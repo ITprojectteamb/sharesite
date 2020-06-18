@@ -161,7 +161,7 @@ ACCOUNT_EMAIL_SUBJECT_PREFIX = ''
 DEFAULT_FROM_EMAIL = 'admin@example.com'
 # メール送信先（コンソール）
 
-MEDIA_ROOT = BASE_DIR
+MEDIA_ROOT = os.path.join(BASE_DIR, 'pics')
 MEDIA_URL = '/pics/'
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'

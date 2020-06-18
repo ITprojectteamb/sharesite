@@ -1,8 +1,8 @@
 from django.shortcuts import render
 from django.utils import timezone
-from .models import  Post,Give,Want,Profile,Item,Employee,Give_comment,Want_comment
+from .models import  Give,Want,Profile,Give_comment,Want_comment
 from django.shortcuts import render, get_object_or_404
-from .forms import PostForm,GiveCreateForm,WantCreateForm,ProfileCreateForm,GiveCommentForm,WantCommentForm,ProfileCommentForm
+from .forms import GiveCreateForm,WantCreateForm,ProfileCreateForm,GiveCommentForm,WantCommentForm,ProfileCommentForm
 from django.shortcuts import redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -12,9 +12,13 @@ from django.contrib import messages
 
 
 class PostListView(LoginRequiredMixin, generic.ListView):
-    model = Post
+    model = Want
     template_name = 'post_list.html'
-    paginate_by = 2
+    paginate_by = 6
+
+    def get_queryset(self):
+        wants = Want.objects.filter(emergency_attribute__contains='1').order_by('-final_update_time')
+        return wants
 
 class GiveListView(LoginRequiredMixin, generic.ListView):
     model = Give
