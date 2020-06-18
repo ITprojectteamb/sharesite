@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.utils import timezone
-from .models import  Give,Want,Profile,Give_comment,Want_comment
+from .models import  Give,Want,Profile,Give_comment,Want_comment,Profile_comment
 from django.shortcuts import render, get_object_or_404
 from .forms import GiveCreateForm,WantCreateForm,ProfileCreateForm,GiveCommentForm,WantCommentForm,ProfileCommentForm
 from django.shortcuts import redirect
@@ -187,8 +187,9 @@ def add_comment_to_profile(request, pk):
         form = ProfileCommentForm()
     return render(request, 'sharesite/add_comment_to_profile.html', {'form': form})
 
+@login_required
 def profile_comment_remove(request, pk):
-    comment = get_object_or_404(profile_comment, pk=pk)
+    comment = get_object_or_404(Profile_comment, pk=pk)
     comment.delete()
     return redirect('profile_detail', pk=comment.profile.pk)
 
@@ -240,6 +241,31 @@ class WantUpdateView(LoginRequiredMixin, generic.UpdateView):
 
     def get_success_url(self):
         return reverse_lazy('want_detail', kwargs={'pk': self.kwargs['pk']})
+
+    def form_valid(self, form):
+        messages.success(self.request, '投稿を更新しました。')
+        return super().form_valid(form)
+
+    def form_invalid(self, form):
+        messages.error(self.request, "投稿を更新できませんでした。")
+        return super().form_invalid(form)
+
+class ProfileDeleteView(LoginRequiredMixin, generic.DeleteView):
+    model = Profile
+    template_name = 'profile_delete.html'
+    success_url = reverse_lazy('profile_list')
+
+    def delete(self, request, *args, **kwargs):
+        messages.success(self.request, "投稿を削除しました。")
+        return super().delete(request, *args, **kwargs)
+
+class ProfileUpdateView(LoginRequiredMixin, generic.UpdateView):
+    model = Profile
+    template_name = 'profile_update.html'
+    form_class = ProfileCreateForm
+
+    def get_success_url(self):
+        return reverse_lazy('profile_detail', kwargs={'pk': self.kwargs['pk']})
 
     def form_valid(self, form):
         messages.success(self.request, '投稿を更新しました。')
