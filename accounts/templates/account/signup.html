@@ -1,14 +1,14 @@
+{% extends 'sharesite/base.html' %}
 
-
-{% block title %}サインアップ | Sharesite{% endblock %}
+{% block title %}ユーザー登録 | Sharesite{% endblock %}
 
 {% block active_signup %}{% endblock %}
 
-{% block contents %}
+{% block content %}
 <div class="container">
     <div class="row">
         <div class="my-div-style">
-            <h1>サインアップ</h1>
+            <h1>ユーザー登録</h1>
             <form method="post" action="{% url 'account_signup' %}">
                 {% csrf_token %}
 

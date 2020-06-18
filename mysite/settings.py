@@ -148,7 +148,7 @@ ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 ACCOUNT_EMAIL_REQUIRED = True
 
 # （未完了）ログイン/ログアウト後の遷移先を設定
-LOGIN_REDIRECT_URL = '/wantnew/'
+LOGIN_REDIRECT_URL = 'post_list'
 ACCOUNT_LOGOUT_REDIRECT_URL = 'account_login'
 
 # ログアウト設定
