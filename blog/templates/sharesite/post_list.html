@@ -7,4 +7,70 @@
 <button class="btn btn-outline-primary waves-effect button_per"><a class="nav-link" href="{% url 'give_list' %}">あげます！</a></button>
 </div>
 </div>
+
+<div class="row">
+    {% for want in want_list %}
+    {% if want.emergency_attribute == "1" %}
+    <!-- Grid column -->
+    <div class="col-lg-4 col-md-12 mb-4">
+      <div class="view overlay rounded z-depth-1">
+        {% if want.photo %}
+        <img src="{{ want.photo.url }}" class="img-fluid" alt="Sample project image">
+        {% endif %}
+        <a>
+          <div class="mask rgba-white-slight"></div>
+        </a>
+      </div>
+      <div class="px-3 pt-3 mx-1 mt-1 pb-0 red-bg emr-bg">
+        <h4 class="font-weight-bold mt-1 mb-3"><a href="{% url 'want_detail' pk=want.pk %}">{{ want.want_name }}</a></h4>
+        <p class="text-muted">{{ want.want_reason|linebreaksbr }}</p>
+        <p class="text-muted">{{ want.author }}</p>
+        <p class="text-muted">緊急度：{{ want.get_emergency_attribute_display }}</p>
+        <a href="{% url 'want_detail' pk=want.pk %}" class="btn btn-indigo btn-sm btn-rounded"><i class="fas fa-clone left"></i> View Detail</a>
+        <a href="{% url 'want_detail' pk=want.pk %}">Comments: {{ want.want_comments.count }}</a>
+      </div>
+    </div>
+    <!-- Grid column -->
+    {% elif want.emergency_attribute == "2" %}
+    <!-- Grid column -->
+    <div class="col-lg-4 col-md-12 mb-4 ">
+      <div class="view overlay rounded z-depth-1">
+        <img src="https://mdbootstrap.com/img/Photos/Others/project4.jpg" class="img-fluid" alt="Sample project image">
+        <a>
+          <div class="mask rgba-white-slight"></div>
+        </a>
+      </div>
+      <div class="px-3 pt-3 mx-1 mt-1 pb-0 blue-bg emr-bg">
+        <h4 class="font-weight-bold mt-1 mb-3"><a href="{% url 'want_detail' pk=want.pk %}">{{ want.want_name }}</a></h4>
+        <p class="text-muted">{{ want.want_reason|linebreaksbr }}</p>
+        <p class="text-muted">{{ want.author }}</p>
+        <p class="text-muted">緊急度：{{ want.get_emergency_attribute_display }}</p>
+        <a href="{% url 'want_detail' pk=want.pk %}" class="btn btn-indigo btn-sm btn-rounded"><i class="fas fa-clone left"></i> View Detail</a>
+        <a href="{% url 'want_detail' pk=want.pk %}">Comments: {{ want.want_comments.count }}</a>
+      </div>
+    </div>
+    <!-- Grid column -->
+    {% else %}
+    <!-- Grid column -->
+    <div class="col-lg-4 col-md-12 mb-4">
+      <div class="view overlay rounded z-depth-1">
+        <img src="https://mdbootstrap.com/img/Photos/Others/project4.jpg" class="img-fluid" alt="Sample project image">
+        <a>
+          <div class="mask rgba-white-slight"></div>
+        </a>
+      </div>
+      <div class="px-3 pt-3 mx-1 mt-1 pb-0 green-bg emr-bg">
+        <h4 class="font-weight-bold mt-1 mb-3"><a href="{% url 'want_detail' pk=want.pk %}">{{ want.want_name }}</a></h4>
+        <p class="text-muted">{{ want.want_reason|linebreaksbr }}</p>
+        <p class="text-muted">{{ want.author }}</p>
+        <p class="text-muted">緊急度：{{ want.get_emergency_attribute_display }}</p>
+        <a href="{% url 'want_detail' pk=want.pk %}" class="btn btn-indigo btn-sm btn-rounded"><i class="fas fa-clone left"></i> View Detail</a>
+        <a href="{% url 'want_detail' pk=want.pk %}">Comments: {{ want.want_comments.count }}</a>
+      </div>
+    </div>
+    <!-- Grid column -->
+    {% endif %}
+    {% endfor %}
+  </div>
+  
 {% endblock %}

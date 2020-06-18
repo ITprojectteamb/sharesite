@@ -9,10 +9,31 @@
         <hr>
         <div class="row">
             <div class="col-3">
-                <strong>本文</strong>
+                <strong>商品名</strong>
             </div>
             <div class="col-9">
                 {{ object.give_name|linebreaksbr }}
+            </div>
+        </div>
+
+        <hr>
+        <div class="row">
+            <div class="col-3">
+                <strong>商品詳細情報</strong>
+            </div>
+            <div class="col-9">
+                {{ object.give_information|linebreaksbr }}
+            </div>
+        </div>
+
+        <hr>
+        
+        <div class="row">
+            <div class="col-3">
+                <strong>あげたい理由</strong>
+            </div>
+            <div class="col-9">
+                {{ object.give_reason|linebreaksbr }}
             </div>
         </div>
 
@@ -26,19 +47,7 @@
                 {{ object.delivery_infomation|linebreaksbr }}
             </div>
         </div>
-
-        <hr>
-
-        <div class="row">
-            <div class="col-3">
-                <strong>あげたい理由</strong>
-            </div>
-            <div class="col-9">
-                {{ object.give_reason|linebreaksbr }}
-            </div>
-        </div>
-
-
+        
         <hr>
 
         <div class="row">
@@ -60,7 +69,7 @@
                 <strong>作成日時</strong>
             </div>
             <div class="col-9">
-                {{ object.open_date }}
+                {{ object.register_date }}
             </div>
         </div>
 
