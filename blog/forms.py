@@ -39,7 +39,7 @@ class GiveCommentForm(forms.ModelForm):
 class WantCreateForm(forms.ModelForm):
     class Meta:
         model = Want
-        fields = ('want_name', 'delivery_infomation', 'want_reason', 'photo')
+        fields = ('author','want_name','emergency_attribute', 'delivery_infomation', 'want_reason', 'photo')
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

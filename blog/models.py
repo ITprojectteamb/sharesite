@@ -68,6 +68,7 @@ class Profile_comment(models.Model):
 
 class Give(models.Model):
     give_id = models.CharField(max_length=7)
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     give_name = models.CharField('GIVEアイテム名称',max_length=30)
     item_id = models.CharField(max_length=7)
     delivery_infomation = models.TextField('引き渡し情報',max_length=200,null=True)
@@ -98,6 +99,13 @@ class Give_comment(models.Model):
 
 class Want(models.Model):
     want_id = models.CharField(max_length=7)
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    emergency = (
+        ('1', '高！'),
+        ('2', '中'),
+        ('3', '低'),
+    )
+    emergency_attribute = models.CharField('お急ぎ度',max_length=30,choices=emergency)
     want_name = models.CharField('WANTアイテム名称',max_length=30)
     item_id = models.CharField(max_length=7)
     delivery_infomation = models.TextField('引き渡し情報',max_length=200,null=True)

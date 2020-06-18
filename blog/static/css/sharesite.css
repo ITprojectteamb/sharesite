@@ -44,35 +44,41 @@ body{
 }
 
 .post_list{
-    height: 100%;
-    background-image: url('https://mdbootstrap.com/img/Photos/Others/gradient2.png');
-    background-position: center;
-    background-size: cover;
-  }
-  
-  .button_erea{
-    display: flex;
-    justify-content: center;
-    padding:300px 0;
-  }
-  .button_per{
-      display: block;
-      width: 200px;
-      margin: 0 50px!important;
-  }
 
-.footer-text{
-    color:white;
-    font-size: 18pt;
-        }
-.pagination-container{
-    display: flex;
-    justify-content: center;
+  height: 100%;
+  background-image: url('https://mdbootstrap.com/img/Photos/Others/gradient2.png');
+  background-position: center;
+  background-size: cover;
 }
 
-.pagination {
-    text-align: center;
+.button_erea{
+  display: flex;
+  justify-content: center;
+  padding:300px 0;
 }
-.page-item {
-    display: inline-block;
+.button_per{
+    display: block;
+    width: 200px;
+    margin: 0 50px!important;
 }
+
+.emr-bg{
+  border-radius: 5%;
+}
+
+.red-bg{
+  background-color: #ffebee;
+}
+
+.blue-bg{
+  background-color: #e3f2fd;
+}
+
+.green-bg{
+  background-color: #e8f5e9;
+}
+
+.green-bg:hover{
+  background-color: #c8e6c9;
+}
+
