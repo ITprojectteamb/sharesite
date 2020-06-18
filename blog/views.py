@@ -22,7 +22,7 @@ class GiveListView(LoginRequiredMixin, generic.ListView):
     paginate_by = 6
     
     def get_queryset(self):
-        gives = Give.objects.order_by('-open_date')
+        gives = Give.objects.order_by('-final_update_time')
         return gives
 
 class WantListView(LoginRequiredMixin, generic.ListView):
@@ -31,7 +31,7 @@ class WantListView(LoginRequiredMixin, generic.ListView):
     paginate_by = 3
     
     def get_queryset(self):
-        wants = Want.objects.order_by('-open_date')
+        wants = Want.objects.order_by('-final_update_time')
         return wants
 
 

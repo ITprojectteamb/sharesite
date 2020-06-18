@@ -67,16 +67,13 @@ class Profile_comment(models.Model):
 
 
 class Give(models.Model):
-    give_id = models.CharField(max_length=7)
     give_name = models.CharField('GIVEアイテム名称',max_length=30)
-    item_id = models.CharField(max_length=7)
-    delivery_infomation = models.TextField('引き渡し情報',max_length=200,null=True)
+    give_information = models.TextField('商品詳細情報',max_length=200,null=True)
     give_reason = models.TextField('あげたい理由',max_length=200,null=True)
+    delivery_infomation = models.CharField('引き渡し方法',max_length=30,null=True)
     register_date = models.DateTimeField('登録日時',default=timezone.now)
-    open_date = models.DateTimeField('公開日時',blank=True, null=True)
     final_update_time = models.DateTimeField('更新日時',default=timezone.now,) 
-    delite_flug =  models.BooleanField('論理削除フラグ', default=False)
-    photo = models.ImageField(verbose_name='写真', blank=True, null=True)
+    photo = models.ImageField(verbose_name='イメージ写真', blank=True, null=True)
     
     def __str__(self):
         return self.give_name
@@ -97,17 +94,14 @@ class Give_comment(models.Model):
         return self.text
 
 class Want(models.Model):
-    want_id = models.CharField(max_length=7)
     want_name = models.CharField('WANTアイテム名称',max_length=30)
-    item_id = models.CharField(max_length=7)
-    delivery_infomation = models.TextField('引き渡し情報',max_length=200,null=True)
+    want_information = models.TextField('商品詳細情報',max_length=200,null=True)
     want_reason = models.TextField('ほしい理由',max_length=200,null=True)
+    delivery_infomation = models.CharField('引き渡し方法',max_length=30,null=True)
     register_date = models.DateTimeField('登録日時',default=timezone.now)
-    open_date = models.DateTimeField('公開日時',blank=True, null=True)
     final_update_time = models.DateTimeField('更新日時',default=timezone.now,) 
-    delite_flug =  models.BooleanField('論理削除フラグ', default=False)
     photo = models.ImageField(verbose_name='イメージ写真', blank=True, null=True)
-    
+
     def __str__(self):
         return self.want_name
 

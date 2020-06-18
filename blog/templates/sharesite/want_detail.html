@@ -9,7 +9,7 @@
         <hr>
         <div class="row">
             <div class="col-3">
-                <strong>本文</strong>
+                <strong>商品名</strong>
             </div>
             <div class="col-9">
                 {{ object.want_name|linebreaksbr }}
@@ -17,13 +17,12 @@
         </div>
 
         <hr>
-
         <div class="row">
             <div class="col-3">
-                <strong>引き渡し情報</strong>
+                <strong>商品詳細情報</strong>
             </div>
             <div class="col-9">
-                {{ object.delivery_infomation|linebreaksbr }}
+                {{ object.want_information|linebreaksbr }}
             </div>
         </div>
 
@@ -38,6 +37,17 @@
             </div>
         </div>
 
+        <hr>
+
+        <div class="row">
+            <div class="col-3">
+                <strong>引き渡し情報</strong>
+            </div>
+            <div class="col-9">
+                {{ object.delivery_infomation|linebreaksbr }}
+            </div>
+        </div>
+        
         <hr>
 
         <div class="row">
@@ -59,7 +69,7 @@
                 <strong>作成日時</strong>
             </div>
             <div class="col-9">
-                {{ object.open_date }}
+                {{ object.register_date }}
             </div>
         </div>
 
