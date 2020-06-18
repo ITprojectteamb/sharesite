@@ -1,4 +1,5 @@
 {% extends 'sharesite/base.html' %}
+{% load static %}
 
 {% block content %}
 <div class="container my-5">
@@ -12,7 +13,9 @@
         <!-- Grid column -->
         <div class="col-lg-4 col-md-12 mb-4">
           <div class="view overlay rounded z-depth-1">
-            <img src="https://mdbootstrap.com/img/Photos/Others/project4.jpg" class="img-fluid" alt="Sample project image">
+            {% if give.photo %}
+            <img src="{{ give.photo.url }}" class="img-fluid" alt="Sample project image">
+            {% endif %}
             <a>
               <div class="mask rgba-white-slight"></div>
             </a>

@@ -24,6 +24,4 @@ urlpatterns = [
     path('', include('blog.urls')),
     #allauthを通過させる
     path('accounts/', include('allauth.urls')),
-]
-
-urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
