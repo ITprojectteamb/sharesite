@@ -99,12 +99,12 @@
     </div>
 </div>
 <hr>
-<a class="btn btn-default" href="{% url 'add_comment_to_give' pk=give.pk %}">コメントする</a>
+<a class="btn btn-outline-danger waves-effect sub-button" style="font-size: 20px;padding: 2px;" href="{% url 'add_comment_to_give' pk=give.pk %}">コメントする</a>
 {% for comment in give.give_comments.all %}
     <div class="comment">
         <div class="date">{{ comment.created_date }}
             {% if not comment.approved_comment %}
-                <a class="btn btn-default" href="{% url 'give_comment_remove' pk=comment.pk %}"><span class="glyphicon glyphicon-remove"></span></a>
+                <a class="btn btn-outline-warning waves-effect sub-button" style="font-size: 20px;padding: 2px;" href="{% url 'give_comment_remove' pk=comment.pk %}"><span class="glyphicon glyphicon-remove"></span></a>
             {% endif %}
         </div>
         <strong>{{ comment.author }}</strong>
@@ -113,6 +113,6 @@
 {% empty %}
     <p>コメントはまだありません</p>
 {% endfor %}
-<a class="btn btn-success mt-5 mb-3" href="{% url 'give_update' object.pk %}">編集</a>
-<a class="btn btn-danger mt-5 ml-2 mb-3" href="{% url 'give_delete' object.pk %}">削除</a>
+<a class="btn btn-outline-default waves-effect sub-button" style="font-size: 24px;" href="{% url 'give_update' object.pk %}">編集</a>
+<a class="btn btn-outline-info waves-effect sub-button" style="font-size: 24px;" href="{% url 'give_delete' object.pk %}">削除</a>
 {% endblock %}

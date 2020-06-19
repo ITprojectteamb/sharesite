@@ -5,7 +5,7 @@
 <div class="container my-5">
     <!-- Section: Block Content -->
     <section class="dark-grey-text text-center">
-      <h3 class="font-weight-bold mb-4 pb-2">PROFILE LIST</h3>
+      <h3 class="font-weight-bold mb-4 pb-2 list-title">プロフィールリスト</h3>
       <p class="text-muted w-responsive mx-auto mb-5">社員のプロフィール一覧です。</p>
       <!-- Grid row -->
       <div class="row">
@@ -14,17 +14,23 @@
         <div class="col-lg-4 col-md-12 mb-4">
           <div class="view overlay rounded z-depth-1">
             {% if profile.photo %}
-            <img src="{{ profile.photo.url }}" class="img-fluid" alt="Sample project image">
+            <img src="{{ profile.photo.url }}" width="400" height="300" alt="No photo">
+            {% else %}
+            <img src="#" alt="No photo" width="400" height="300">
             {% endif %}
             <a>
               <div class="mask rgba-white-slight"></div>
             </a>
           </div>
           <div class="px-3 pt-3 mx-1 mt-1 pb-0">
-            <h4 class="font-weight-bold mt-1 mb-3"><a href="{% url 'profile_detail' pk=profile.pk %}">{{ profile.name }}</a></h4>
+            <h4 class="font-weight-bold mt-1 mb-3"><a class="body-title" href="{% url 'profile_detail' pk=profile.pk %}">{{ profile.name }}</a></h4>
             <p class="text-muted">{{ profile.mail_adress|linebreaksbr }}</p>
-            <a href="{% url 'profile_detail' pk=profile.pk %}" class="btn btn-indigo btn-sm btn-rounded"><i class="fas fa-clone left"></i> View Detail</a>
-            <a href="{% url 'profile_detail' pk=profile.pk %}">Comments: {{ profile.profile_comments.count }}</a>
+            <div class="view-detail">
+            <a href="{% url 'profile_detail' pk=profile.pk %}" class="btn btn-outline-default waves-effect"><i class="fas fa-clone left"></i> 詳細を見る</a>
+          </div>
+          <div class="comment-detail">
+            <a href="{% url 'profile_detail' pk=profile.pk %}"><br>コメント: {{ profile.profile_comments.count }}件</a>
+          </div>
           </div>
         </div>
         <!-- Grid column -->

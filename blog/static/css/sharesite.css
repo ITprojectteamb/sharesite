@@ -1,7 +1,11 @@
 body{
     font-family:'ãƒ¡ã‚¤ãƒªã‚ª', 'Meiryo', sans-serif;
     background-color: #F5F5F5;
+    font-size:24px!important;
     position: relative;
+  }
+  img{
+    object-fit: contain!important; object-position:center!important;
   }
 
 .header-title {
@@ -14,7 +18,8 @@ body{
 }
 
 .nav-link{
-    font-size:20px;
+  font-size:16px!important;
+  font-weight:bold;
 }
 
 .footer{
@@ -44,7 +49,6 @@ body{
 }
 
 .post_list{
-
   height: 100%;
   background-image: url('https://mdbootstrap.com/img/Photos/Others/gradient2.png');
   background-position: center;
@@ -54,13 +58,32 @@ body{
 .button_erea{
   display: flex;
   justify-content: center;
-  padding:300px 0;
+  width:80%;
+  margin:0 auto;
+  padding:15% 0px;
 }
+
+.button_erea > .btn,.button_erea > .btn:hover{
+  background-color:white!important;
+  width:300px;
+  height:150px;
+  border-radius:50%;
+}
+
 .button_per{
     display: block;
     width: 200px;
-    margin: 0 50px!important;
+    margin: 0 150px!important;
+    height:100px;
 }
+
+.button_per > a,.button_per > a :hover {
+  font-size:34px;
+  font-weight:bold;
+}
+
+.button_erea > .btn-outline-info > a,.button_erea >.btn-outline-info > a:hover{color:#33b5e5!important;}
+.button_erea > .btn-outline-success > a,.button_erea > .btn-outline-success > a:hover{color:#00c851 !important;}
 
 .emr-bg{
   border-radius: 5%;
@@ -78,10 +101,88 @@ body{
   background-color: #e8f5e9;
 }
 
-.green-bg:hover{
-  background-color: #c8e6c9;
+
+.row{
+  margin: 50px 10px!important;
 }
 
+.navbar-nav > li{
+  background-color:#55c8bd;
+  border-radius:5px;
+  margin-right:10px;
+  padding:0 10px;
+}
+
+.navbar-nav > li:hover{
+  background-color:#7fd6cd;
+  -moz-opacity: 0.8;
+  -webkit-transition: 0.3s ease-in-out;
+  -moz-transition: 0.3s ease-in-out;
+  -o-transition: 0.3s ease-in-out;
+  transition: 0.3s ease-in-out;
+  border-radius:5px;
+  margin-right:10px;
+  padding:0 10px;
+  
+}
+
+.header-title{
+  letter-spacing:8px;
+}
+
+.body-title{
+  font-size: 24px;
+}
+
+.body-text{
+  font-size: 18px;
+}
+
+.fuwafuwa{
+-webkit-animation:fuwafuwa 3s infinite linear alternate;
+animation:fuwafuwa 3s infinite linear alternate;
+}
+
+@-webkit-keyframes fuwafuwa {
+0% {-webkit-transform:translate(0, 0) rotate(-1deg);}
+50% {-webkit-transform:translate(0, -2px) rotate(0deg);}
+100% {-webkit-transform:translate(0, 0)rotate(1deg);}
+}
+
+@keyframes fuwafuwa {
+0% {transform:translate(0, 0) rotate(-1deg);}
+50% {transform:translate(0, -2px) rotate(0deg);}
+100% {transform:translate(0, 0)rotate(1deg);}
+}
+
+.view-detail{
+  text-align: center;
+}
+
+.view-detail{
+  text-align: center;
+}
+.view-detail a{
+  text-align: center;
+  display:block;
+  padding:30px;
+  font-size:20px;
+}
+
+.comment-detail{
+  text-align: right;
+}
+
+.list-title{
+  font-size: 36px;
+}
+label{
+  font-size:20px;
+}
+
+.sub-button{
+  height:60px;
+  width:100px;
 
 
 .account-form {
