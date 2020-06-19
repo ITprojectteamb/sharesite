@@ -7,11 +7,11 @@
 <div class="container">
     <div class="row">
         <div class="my-div-style">
-            <h1>ユーザー登録</h1>
+            <h1>アカウント作成</h1>
 
             {% if confirmation %}
 
-                <p>ユーザー登録を確定するには、以下のボタンを押してください。</p>
+                <p>アカウント作成を完了するには、以下のボタンを押してください。</p>
 
                 <form method="post" action="{% url 'account_confirm_email' confirmation.key %}">
                     {% csrf_token %}
@@ -22,10 +22,39 @@
 
                 {% url 'account_email' as email_url %}
 
-                <p>リンクの有効期限が過ぎています。 <a href="{{ email_url }}">再申請</a>.</p>
+                <p>リンクの有効期限が過ぎています。お手数ですが再申請してくださるようお願いします。<a href="{{ email_url }}">再申請</a>.</p>
 
             {% endif %}
         </div>
     </div>
 </div>
+<style>
+.my-div-style{
+    text-align: center;
+    margin-left: 200px;
+}
+
+.my-div-style h1{
+    font-size: 35px;
+}
+
+.my-div-style p{
+    margin-top: 30px;
+}
+
+.btn{
+    width: 100px;
+    height: 70px;
+    font-size: 20px;
+    border-radius: 10%;
+    margin-top: 50px;
+    transition-duration: 3s;
+}
+
+.btn:hover{
+    opacity: 0.8;
+
+}
+
+</style>
 {% endblock %}
