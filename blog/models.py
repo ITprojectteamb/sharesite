@@ -31,7 +31,7 @@ class Give(models.Model):
     give_name = models.CharField('タイトル（※必須）',max_length=50)
     give_information = models.TextField('詳細情報（※必須）',max_length=200,null=True)
     give_reason = models.TextField('あげたい理由（※任意）',max_length=200,null=True)
-    delivery_infomation = models.CharField('引き渡し方法',max_length=30,null=True)
+    delivery_infomation = models.CharField('引き渡し方法（※必須）',max_length=30,null=True)
     register_date = models.DateTimeField('登録日時',auto_now_add=True)
     final_update_time = models.DateTimeField('更新日時',auto_now=True)  
     photo = models.ImageField(verbose_name='イメージ写真（※任意）', blank=True, null=True)
