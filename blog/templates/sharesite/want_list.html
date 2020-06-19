@@ -5,8 +5,8 @@
 <div class="container my-5">
     <!-- Section: Block Content -->
     <section class="dark-grey-text text-center">
-      <h3 class="font-weight-bold mb-4 pb-2 list-title">WANT LIST</h3>
-      <p class="text-muted w-responsive mx-auto mb-5">みんなの今欲しいものが載っています。あげられるものがあればコメントしてみましょう！</p>
+      <h3 class="font-weight-bold mb-4 pb-2 list-title">ほしいリスト</h3>
+      <p class="text-muted w-responsive mx-auto mb-5">みんなの今欲しいものが載っています。<br>あげられるものがあればコメントしてみましょう！</p>
       <!-- Grid row -->
       <div class="row">
         {% for want in want_list %}
@@ -15,9 +15,9 @@
         <div class="col-lg-4 col-md-12 mb-4">
           <div class="view overlay rounded z-depth-1">
             {% if want.photo %}
-            <img href="{% url 'want_detail' pk=want.pk %}" src="{{ want.photo.url }}" class="img-fluid" alt="No photo">
+            <a href="{% url 'want_detail' pk=want.pk %}"><img src="{{ want.photo.url }}"  alt="No photo" width="469.73" height="300"></a>
             {% else %}
-            <img src="#" alt="No photo" width="469.73" height="300">
+            <a href="{% url 'want_detail' pk=want.pk %}"><img src="#" alt="No photo" width="469.73" height="300"></a>
             {% endif %}
             <a>
               <div class="mask rgba-white-slight"></div>
@@ -25,7 +25,7 @@
           </div>
           <div class="px-3 pt-3 mx-1 mt-1 pb-0 red-bg emr-bg">
             <h4 class="font-weight-bold mt-1 mb-3"><a class="body-title" href="{% url 'want_detail' pk=want.pk %}">{{ want.want_name }}</a></h4>
-            <p class="text-muted body-text text-left">欲しい理由：<br>{{ want.want_reason|linebreaksbr }}</p>
+            <p class="text-muted body-text text-left">ほしい理由：<br>{{ want.want_reason|truncatechars:50 }}<a class="read-more" href="{% url 'want_detail' pk=want.pk %}">  >>続きを読む</a></p>
             <p class="text-muted body-text text-left">投稿者：{{ want.author }}</p>
             <p class="text-muted body-text text-left">緊急度：{{ want.get_emergency_attribute_display }}</p>
             <div class="view-detail">
@@ -42,16 +42,16 @@
         <div class="col-lg-4 col-md-12 mb-4 ">
           <div class="view overlay rounded z-depth-1">
             {% if want.photo %}
-            <img href="{% url 'want_detail' pk=want.pk %}" src="{{ want.photo.url }}" class="img-fluid" alt="No photo">
+            <a href="{% url 'want_detail' pk=want.pk %}"><img src="{{ want.photo.url }}"  alt="No photo" width="469.73" height="300"></a>
             {% else %}
-            <img src="#" alt="No photo" width="469.73" height="300">
+            <a href="{% url 'want_detail' pk=want.pk %}"><img  src="#" alt="No photo" width="469.73" height="300"></a>
             {% endif %}
               <div class="mask rgba-white-slight"></div>
             </a>
           </div>
           <div class="px-3 pt-3 mx-1 mt-1 pb-0 blue-bg emr-bg">
             <h4 class="font-weight-bold mt-1 mb-3"><a class="body-title" href="{% url 'want_detail' pk=want.pk %}">{{ want.want_name }}</a></h4>
-            <p class="text-muted body-text text-left">欲しい理由：<br>{{ want.want_reason|linebreaksbr }}</p>
+            <p class="text-muted body-text text-left">ほしい理由：<br>{{ want.want_reason|truncatechars:50 }}<a class="read-more" href="{% url 'want_detail' pk=want.pk %}">  >>続きを読む</a></p>
             <p class="text-muted body-text text-left">投稿者：{{ want.author }}</p>
             <p class="text-muted body-text text-left">緊急度：{{ want.get_emergency_attribute_display }}</p>
             <div class="view-detail">
@@ -68,16 +68,16 @@
         <div class="col-lg-4 col-md-12 mb-4">
           <div class="view overlay rounded z-depth-1">
             {% if want.photo %}
-            <img href="{% url 'want_detail' pk=want.pk %}" src="{{ want.photo.url }}" class="img-fluid" alt="No photo">
+            <a href="{% url 'want_detail' pk=want.pk %}"><img src="{{ want.photo.url }}"  alt="No photo" width="469.73" height="300"></a>
             {% else %}
-            <img src="#" alt="No photo" width="469.73" height="300">
+            <a href="{% url 'want_detail' pk=want.pk %}"><img src="#" alt="No photo" width="469.73" height="300"></a>
             {% endif %}
               <div class="mask rgba-white-slight"></div>
             </a>
           </div>
           <div class="px-3 pt-3 mx-1 mt-1 pb-0 green-bg emr-bg">
             <h4 class="font-weight-bold mt-1 mb-3"><a class="body-title" href="{% url 'want_detail' pk=want.pk %}">{{ want.want_name }}</a></h4>
-            <p class="text-muted body-text text-left">欲しい理由：<br>{{ want.want_reason|linebreaksbr }}</p>
+            <p class="text-muted body-text text-left">ほしい理由：<br>{{ want.want_reason|truncatechars:50 }}<a class="read-more" href="{% url 'want_detail' pk=want.pk %}">  >>続きを読む</a></p>
             <p class="text-muted body-text text-left">投稿者：{{ want.author }}</p>
             <p class="text-muted body-text text-left">緊急度：{{ want.get_emergency_attribute_display }}</p>
             <div class="view-detail">
