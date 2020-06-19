@@ -6,7 +6,7 @@
     <!-- Section: Block Content -->
     <section class="dark-grey-text text-center">
       <h3 class="font-weight-bold mb-4 pb-2 list-title">WANT LIST</h3>
-      <p class="text-muted w-responsive mx-auto mb-5">社員の今欲しいものが載っています。あげられるものがあればコメントしてみましょう！</p>
+      <p class="text-muted w-responsive mx-auto mb-5">みんなの今欲しいものが載っています。あげられるものがあればコメントしてみましょう！</p>
       <!-- Grid row -->
       <div class="row">
         {% for want in want_list %}
@@ -15,19 +15,25 @@
         <div class="col-lg-4 col-md-12 mb-4">
           <div class="view overlay rounded z-depth-1">
             {% if want.photo %}
-            <img src="{{ want.photo.url }}" class="img-fluid" alt="Sample project image">
+            <img href="{% url 'want_detail' pk=want.pk %}" src="{{ want.photo.url }}" class="img-fluid" alt="No photo">
+            {% else %}
+            <img src="#" alt="No photo" width="469.73" height="300">
             {% endif %}
             <a>
               <div class="mask rgba-white-slight"></div>
             </a>
           </div>
           <div class="px-3 pt-3 mx-1 mt-1 pb-0 red-bg emr-bg">
-            <h4 class="font-weight-bold mt-1 mb-3"><a href="{% url 'want_detail' pk=want.pk %}">{{ want.want_name }}</a></h4>
-            <p class="text-muted">{{ want.want_reason|linebreaksbr }}</p>
-            <p class="text-muted">{{ want.author }}</p>
-            <p class="text-muted">緊急度：{{ want.get_emergency_attribute_display }}</p>
-            <a href="{% url 'want_detail' pk=want.pk %}" class="btn btn-indigo btn-sm btn-rounded"><i class="fas fa-clone left"></i> View Detail</a>
-            <a href="{% url 'want_detail' pk=want.pk %}">Comments: {{ want.want_comments.count }}</a>
+            <h4 class="font-weight-bold mt-1 mb-3"><a class="body-title" href="{% url 'want_detail' pk=want.pk %}">{{ want.want_name }}</a></h4>
+            <p class="text-muted body-text text-left">欲しい理由：<br>{{ want.want_reason|linebreaksbr }}</p>
+            <p class="text-muted body-text text-left">投稿者：{{ want.author }}</p>
+            <p class="text-muted body-text text-left">緊急度：{{ want.get_emergency_attribute_display }}</p>
+            <div class="view-detail">
+            <a href="{% url 'want_detail' pk=want.pk %}" class="btn btn-outline-default waves-effect"><i class="fas fa-clone left"></i> View Detail</a>
+          </div>
+          <div class="comment-detail">
+            <a href="{% url 'want_detail' pk=want.pk %}">コメント: {{ want.want_comments.count }}件</a>
+          </div>
           </div>
         </div>
         <!-- Grid column -->
@@ -35,17 +41,25 @@
         <!-- Grid column -->
         <div class="col-lg-4 col-md-12 mb-4 ">
           <div class="view overlay rounded z-depth-1">
-            <img src="{{ want.photo.url }}" class="img-fluid" alt="Sample project image"><a>
+            {% if want.photo %}
+            <img href="{% url 'want_detail' pk=want.pk %}" src="{{ want.photo.url }}" class="img-fluid" alt="No photo">
+            {% else %}
+            <img src="#" alt="No photo" width="469.73" height="300">
+            {% endif %}
               <div class="mask rgba-white-slight"></div>
             </a>
           </div>
           <div class="px-3 pt-3 mx-1 mt-1 pb-0 blue-bg emr-bg">
-            <h4 class="font-weight-bold mt-1 mb-3"><a href="{% url 'want_detail' pk=want.pk %}">{{ want.want_name }}</a></h4>
-            <p class="text-muted">{{ want.want_reason|linebreaksbr }}</p>
-            <p class="text-muted">{{ want.author }}</p>
-            <p class="text-muted">緊急度：{{ want.get_emergency_attribute_display }}</p>
-            <a href="{% url 'want_detail' pk=want.pk %}" class="btn btn-indigo btn-sm btn-rounded"><i class="fas fa-clone left"></i> View Detail</a>
-            <a href="{% url 'want_detail' pk=want.pk %}">Comments: {{ want.want_comments.count }}</a>
+            <h4 class="font-weight-bold mt-1 mb-3"><a class="body-title" href="{% url 'want_detail' pk=want.pk %}">{{ want.want_name }}</a></h4>
+            <p class="text-muted body-text text-left">欲しい理由：<br>{{ want.want_reason|linebreaksbr }}</p>
+            <p class="text-muted body-text text-left">投稿者：{{ want.author }}</p>
+            <p class="text-muted body-text text-left">緊急度：{{ want.get_emergency_attribute_display }}</p>
+            <div class="view-detail">
+            <a href="{% url 'want_detail' pk=want.pk %}" class="btn btn-outline-default waves-effect"><i class="fas fa-clone left"></i> View Detail</a>
+          </div>
+          <div class="comment-detail">
+            <a href="{% url 'want_detail' pk=want.pk %}">コメント: {{ want.want_comments.count }}件</a>
+          </div>
           </div>
         </div>
         <!-- Grid column -->
@@ -53,17 +67,25 @@
         <!-- Grid column -->
         <div class="col-lg-4 col-md-12 mb-4">
           <div class="view overlay rounded z-depth-1">
-            <img src="{{ want.photo.url }}" class="img-fluid" alt="Sample project image"><a>
+            {% if want.photo %}
+            <img href="{% url 'want_detail' pk=want.pk %}" src="{{ want.photo.url }}" class="img-fluid" alt="No photo">
+            {% else %}
+            <img src="#" alt="No photo" width="469.73" height="300">
+            {% endif %}
               <div class="mask rgba-white-slight"></div>
             </a>
           </div>
           <div class="px-3 pt-3 mx-1 mt-1 pb-0 green-bg emr-bg">
-            <h4 class="font-weight-bold mt-1 mb-3"><a href="{% url 'want_detail' pk=want.pk %}">{{ want.want_name }}</a></h4>
-            <p class="text-muted">{{ want.want_reason|linebreaksbr }}</p>
-            <p class="text-muted">{{ want.author }}</p>
-            <p class="text-muted">緊急度：{{ want.get_emergency_attribute_display }}</p>
-            <a href="{% url 'want_detail' pk=want.pk %}" class="btn btn-indigo btn-sm btn-rounded"><i class="fas fa-clone left"></i> View Detail</a>
-            <a href="{% url 'want_detail' pk=want.pk %}">Comments: {{ want.want_comments.count }}</a>
+            <h4 class="font-weight-bold mt-1 mb-3"><a class="body-title" href="{% url 'want_detail' pk=want.pk %}">{{ want.want_name }}</a></h4>
+            <p class="text-muted body-text text-left">欲しい理由：<br>{{ want.want_reason|linebreaksbr }}</p>
+            <p class="text-muted body-text text-left">投稿者：{{ want.author }}</p>
+            <p class="text-muted body-text text-left">緊急度：{{ want.get_emergency_attribute_display }}</p>
+            <div class="view-detail">
+            <a href="{% url 'want_detail' pk=want.pk %}" class="btn btn-outline-default waves-effect"><i class="fas fa-clone left"></i> View Detail</a>
+          </div>
+          <div class="comment-detail">
+            <a class="body-text" href="{% url 'want_detail' pk=want.pk %}">コメント: {{ want.want_comments.count }}件</a>
+          </div>
           </div>
         </div>
         <!-- Grid column -->
