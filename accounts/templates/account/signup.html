@@ -1,26 +1,52 @@
-{% extends 'sharesite/base.html' %}
+{% extends "sharesite/base.html" %}
+{% load static %}
+{% block js %}{% endblock %} 
 
-{% block title %}ユーザー登録 | Sharesite{% endblock %}
 
-{% block active_signup %}{% endblock %}
+
+{% block title %}アカウント作成{% endblock %}
 
 {% block content %}
-<div class="container">
-    <div class="row">
-        <div class="my-div-style">
-            <h1>ユーザー登録</h1>
-            <form method="post" action="{% url 'account_signup' %}">
-                {% csrf_token %}
 
-                {{ form.as_p }}
+<section class="container">
 
-                {% if redirect_field_value %}
-                    <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
-                {% endif %}
-
-                <button class="btn btn-primary" type="submit">登録</button>
-            </form>
+  <h2>ユーザー登録</h2>  
+  <form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}">
+    {% csrf_token %}
+    
+    {% for field in form%}
+      <div class="account-form">
+        <div class="account-filed">
+          <span class="non-last-field">{{ field }}</span> 
         </div>
+
+        <div class="account-helptext">
+          {% if field.errors %}
+            <p>{{ field.errors.0 }}</p>
+          {% endif %}
+        </div>
+      </div>
+    {% endfor%}
+
+    {% if redirect_field_value %}
+    <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+    {% endif %}
+
+    {% if form.non_field_errors %}
+    <div class="non-field-error">
+      <ul>
+        {% for non_field_error in form.non_field_errors %}
+          <li>{{non_field_error}}</li>
+        {% endfor %}
+      </ul>
     </div>
-</div>
+    {% endif %}
+    
+    <div class="account-grid">
+        <button class="primaryAction form-submit" type="submit">アカウント作成</button>
+        <a href="{{ login_url }}" class="btn btn-account create-account">ログインに戻る</a>
+    </div>
+  </form>
+</section>
+
 {% endblock %}
