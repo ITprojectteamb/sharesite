@@ -1,3 +1,4 @@
+@charset "utf-8";
 body{
     font-family:'ãƒ¡ã‚¤ãƒªã‚ª', 'Meiryo', sans-serif;
     background-color: #F5F5F5;
@@ -185,7 +186,7 @@ label{
   width:100px;
 
 
-.account-form {
+.account-form{
   margin-left: 25%;
 }
 
