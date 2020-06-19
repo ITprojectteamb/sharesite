@@ -6,7 +6,7 @@
     <!-- Section: Block Content -->
     <section class="dark-grey-text text-center">
       <h3 class="font-weight-bold mb-4 pb-2 body-text list-title" >あげるリスト</h3>
-      <p class="text-muted w-responsive mx-auto mb-5">社員のあげられるものが載っています。欲しいものがあればコメントしてみましょう！</p>
+      <p class="text-muted w-responsive mx-auto mb-5">みんなのあげられるものが載っています。欲しいものがあればコメントしてみましょう！</p>
       <!-- Grid row -->
       <div class="row">
         {% for give in give_list %}
@@ -14,7 +14,7 @@
         <div class="col-lg-4 col-md-12 mb-4">
           <div class="view overlay rounded z-depth-1">
             {% if give.photo %}
-            <img src="{{ give.photo.url }}" alt="No photo" width="333.2" height="300">
+            <img href="{% url 'give_detail' pk=give.pk %}" src="{{ give.photo.url }}" alt="No photo" width="333.2" height="300">
             {% else %}
         <img src="#" alt="No photo" width="469.73" height="300">
             {% endif %}

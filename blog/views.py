@@ -32,7 +32,7 @@ class GiveListView(LoginRequiredMixin, generic.ListView):
 class WantListView(LoginRequiredMixin, generic.ListView):
     model = Want
     template_name = 'want_list.html'
-    paginate_by = 3
+    paginate_by = 6
     
     def get_queryset(self):
         wants = Want.objects.order_by('-final_update_time')
