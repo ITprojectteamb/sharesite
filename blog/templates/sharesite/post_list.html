@@ -3,8 +3,14 @@
 {% block content %}
 <div class="post_list">
 <div class="button_erea">
-<button class="btn fuwafuwa btn-outline-success waves-effect button_per top-button-left"><a class="" href="{% url 'want_list' %}">ほしいです！</a></button>
-<button class="btn  fuwafuwa btn-outline-info waves-effect button_per top-button-right"><a class="" href="{% url 'give_list' %}">あげます！</a></button>
+<button class="btn  btn-outline-success waves-effect button_per top-button-left"><a class="" href="{% url 'want_list' %}">ほしいです！</a></button>
+<button class="btn  btn-outline-info waves-effect button_per top-button-right"><a class="" href="{% url 'give_list' %}">あげます！</a></button>
+</div>
+<div class="top-emr-mes text-center">
+  <h2>すぐに欲しい人が待っています！</h2>
+  <br>
+  <h2 class="fuwafuwa">↓ ↓ ↓</h2>
+
 </div>
 </div>
 
@@ -52,7 +58,7 @@
       </div>
       <div class="px-3 pt-3 mx-1 mt-1 pb-0 blue-bg emr-bg">
         <h4 class="font-weight-bold mt-1 mb-3"><a href="{% url 'want_detail' pk=want.pk %}" class="body-title">{{ want.want_name }}</a></h4>
-        <p class="text-muted body-text" >欲しい理由：<br>{{ want.want_reason|truncatechars:100 }}<a class="read-more" href="{% url 'want_detail' pk=want.pk %}">  >>続きを読む</a></p>
+        <p class="text-muted body-text" >欲しい理由：<br>{{ want.want_reason|truncatechars:50 }}<a class="read-more" href="{% url 'want_detail' pk=want.pk %}">  >>続きを読む</a></p>
         <p class="text-muted">投稿者：{{ want.author }}</p>
         <p class="text-muted">緊急度：{{ want.get_emergency_attribute_display }}</p>
         <a href="{% url 'want_detail' pk=want.pk %}" class="btn btn-outline-default waves-effect"><i class="fas fa-clone left"></i>詳細を見る</a>
@@ -75,7 +81,7 @@
       </div>
       <div class="px-3 pt-3 mx-1 mt-1 pb-0 green-bg emr-bg">
         <h4 class="font-weight-bold mt-1 mb-3"><a href="{% url 'want_detail' pk=want.pk %}" class="body-title">{{ want.want_name }}</a></h4>
-        <p class="text-muted body-text" >欲しい理由：<br>{{ want.want_reason|truncatechars:100 }}<a class="read-more" href="{% url 'want_detail' pk=want.pk %}">  >>続きを読む</a></p>
+        <p class="text-muted body-text" >欲しい理由：<br>{{ want.want_reason|truncatechars:50 }}<a class="read-more" href="{% url 'want_detail' pk=want.pk %}">  >>続きを読む</a></p>
         <p class="text-muted">投稿者：{{ want.author }}</p>
         <p class="text-muted">緊急度：{{ want.get_emergency_attribute_display }}</p>
         <a href="{% url 'want_detail' pk=want.pk %}" class="btn btn-outline-default waves-effect"><i class="fas fa-clone left"></i>詳細を見る</a>
