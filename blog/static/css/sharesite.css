@@ -1,7 +1,7 @@
 body{
     font-family:'ãƒ¡ã‚¤ãƒªã‚ª', 'Meiryo', sans-serif;
     background-color: #F5F5F5;
-    font-size:24px!important;
+    font-size:20px!important;
     position: relative;
   }
   img{
@@ -144,15 +144,15 @@ animation:fuwafuwa 3s infinite linear alternate;
 }
 
 @-webkit-keyframes fuwafuwa {
-0% {-webkit-transform:translate(0, 0) rotate(-1deg);}
-50% {-webkit-transform:translate(0, -2px) rotate(0deg);}
-100% {-webkit-transform:translate(0, 0)rotate(1deg);}
+0% {-webkit-transform:translate(0, 0) rotate(-0deg);}
+50% {-webkit-transform:translate(0, -8px) rotate(0deg);}
+100% {-webkit-transform:translate(0, 0)rotate(0deg);}
 }
 
 @keyframes fuwafuwa {
-0% {transform:translate(0, 0) rotate(-1deg);}
-50% {transform:translate(0, -2px) rotate(0deg);}
-100% {transform:translate(0, 0)rotate(1deg);}
+0% {transform:translate(0, 0) rotate(-0deg);}
+50% {transform:translate(0, -8px) rotate(0deg);}
+100% {transform:translate(0, 0)rotate(0deg);}
 }
 
 .view-detail{
@@ -183,7 +183,7 @@ label{
 
 .sub-button{
   height:60px;
-  width:100px;
+  width:100px;}
 
 
 .account-form {
@@ -331,4 +331,21 @@ nav .dropdown-item:hover{
 .container p{
   font-size: 20px;
   text-align: center;
+}
+.top-emr-mes h2{
+  color:rgb(255, 255, 255);
+  font-weight: bold;
+  font-family:'ãƒ¡ã‚¤ãƒªã‚ª', 'Meiryo', sans-serif;
+  font-size: 25px;
+  letter-spacing: 10px;
+}
+
+.comment-button{
+  font-size: 24px;
+  margin: 0 auto!important;
+  display: block!important;
+}
+
+.comment-area{
+  margin-left: 100px;
 }

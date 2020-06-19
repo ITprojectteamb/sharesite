@@ -24,7 +24,7 @@
           </div>
           <div class="px-3 pt-3 mx-1 mt-1 pb-0">
             <h4 class="font-weight-bold mt-1 mb-3"><a class="body-title" href="{% url 'give_detail' pk=give.pk %}">{{ give.give_name }}</a></h4>
-            <p class="text-muted body-text text-left">あげたい理由：<br>{{ give.give_reason|truncatechars:100 }}<a class="read-more" href="{% url 'give_detail' pk=give.pk %}">  >>続きを読む</a></p>
+            <p class="text-muted body-text text-left">あげたい理由：<br>{{ give.give_reason|truncatechars:50 }}<a class="read-more" href="{% url 'give_detail' pk=give.pk %}">  >>続きを読む</a></p>
             <p class="text-muted text-left">投稿者：{{ give.author }}</p>
             <div class="view-detail">
             <a href="{% url 'give_detail' pk=give.pk %}" class="btn btn-outline-default waves-effect"><i class="fas fa-clone left"></i> 詳細を見る</a>

@@ -1,9 +1,9 @@
 {% extends 'sharesite/base.html' %}
 
 {% block content %}
-    <h1>New comment</h1>
-    <form method="POST" class="profile-form">{% csrf_token %}
+    <h1 class="text-center">コメントする</h1>
+    <form  method="POST" class="profile-form">{% csrf_token %}
         {{ form.as_p }}
-        <button type="submit" class="save btn btn-default">Send</button>
+        <button type="submit" class="btn btn-outline-default waves-effect sub-button comment-button" style="font-size: 24px;">投稿</button>
     </form>
 {% endblock %}

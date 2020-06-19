@@ -3,6 +3,9 @@
 
 
 {% block content %}
+<div class="text-center">
+    <h2 style="font-weight:bold;">プロフィール</h2>
+</div>
 <div class="container">
     <div class="my-div-style w-100">
         
@@ -20,7 +23,7 @@
 
         <div class="row">
             <div class="col-3">
-                <strong>自己紹介</strong>
+                <strong>ひとこと</strong>
             </div>
             <div class="col-9">
                 {{ object.introduction|linebreaksbr }}
@@ -31,7 +34,7 @@
 
         <div class="row">
             <div class="col-3">
-                <strong>写真</strong>
+                <strong>プロフィール画像</strong>
             </div>
             <div class="col-3">
                 {% if object.photo %}
@@ -43,12 +46,16 @@
     </div>
 </div>
 <hr>
-<a class="btn btn-outline-danger waves-effect sub-button" style="font-size: 20px;padding: 2px;" href="{% url 'add_comment_to_profile' pk=profile.pk %}">コメントする</a>
+<div class="comment-area">
+<a class="btn btn-outline-warning waves-effect sub-button" style="font-size: 20px;padding: 2px;" href="{% url 'add_comment_to_profile' pk=profile.pk %}">コメントする</a>
+<a class="btn btn-outline-default waves-effect sub-button" style="font-size: 24px;" href="{% url 'profile_update' object.pk %}">編集</a>
+<a class="btn btn-outline-info waves-effect sub-button" style="font-size: 24px;" href="{% url 'profile_delete' object.pk %}">削除</a>
 {% for comment in profile.profile_comments.all %}
+
     <div class="comment">
         <div class="date">{{ comment.created_date }}
             {% if not comment.approved_comment %}
-                <a class="btn btn-outline-warning waves-effect sub-button" style="font-size: 20px;padding: 2px;" href="{% url 'profile_comment_remove' pk=comment.pk %}"><span class="glyphicon glyphicon-remove"></span></a>
+                <a class="btn btn-outline-danger waves-effect sub-button" style="line-height:20px; font-size: 20px;padding: 20px;" href="{% url 'profile_comment_remove' pk=comment.pk %}"><span class="glyphicon glyphicon-remove"></span></a>
             {% endif %}
         </div>
         <strong>{{ comment.author }}</strong>
@@ -57,6 +64,5 @@
 {% empty %}
     <p>コメントはまだありません</p>
 {% endfor %}
-<a class="btn btn-outline-default waves-effect sub-button" style="font-size: 24px;" href="{% url 'profile_update' object.pk %}">編集</a>
-<a class="btn btn-outline-info waves-effect sub-button" style="font-size: 24px;" href="{% url 'profile_delete' object.pk %}">削除</a>
+</div>
 {% endblock %}

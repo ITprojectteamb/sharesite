@@ -12,8 +12,8 @@
                 <table class="table">
                     {{ form.as_table }}
                 </table>
-                <button class="btn btn-primary" type="submit">更新</button>
-                <a class="btn btn-secondary ml-2" href="{% url 'profile_detail' object.pk %}">キャンセル</a>
+                <button class="btn btn-outline-default waves-effect sub-button" style="font-size: 24px;" type="submit">更新</button>
+                <a class="btn btn-outline-info waves-effect sub-button" style="font-size: 24px;" href="{% url 'profile_detail' object.pk %}">取消</a>
             </form>
         </div>
     </div>
