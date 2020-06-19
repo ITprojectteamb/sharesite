@@ -25,9 +25,9 @@
       </div>
       <div class="px-3 pt-3 mx-1 mt-1 pb-0 red-bg emr-bg">
         <h4 class="font-weight-bold mt-1 mb-3"><a href="{% url 'want_detail' pk=want.pk %}" class="body-title">{{ want.want_name }}</a></h4>
-        <p class="text-muted body-text" >欲しい理由：<br>{{ want.want_reason|truncatechars:100 }}<a class="read-more" href="{% url 'want_detail' pk=want.pk %}">  >>続きを読む</a></p>
-        <p class="text-muted">投稿者：{{ want.author }}</p>
-        <p class="text-muted">緊急度：{{ want.get_emergency_attribute_display }}</p>
+        <p class="text-muted body-text" >ほしい理由：<br>{{ want.want_reason|truncatechars:50 }}<a class="read-more" href="{% url 'want_detail' pk=want.pk %}">  >>続きを読む</a></p>
+        <p class="body-text text-muted">投稿者：{{ want.author }}</p>
+        <p class="body-text text-muted">緊急度：{{ want.get_emergency_attribute_display }}</p>
         <div class="view-detail">
         <a href="{% url 'want_detail' pk=want.pk %}" class="btn btn-outline-default waves-effect"><i class="fas fa-clone left"></i>詳細を見る</a>
       </div>
