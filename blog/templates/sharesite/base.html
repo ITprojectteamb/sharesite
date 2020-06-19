@@ -26,17 +26,17 @@
       <ul class="navbar-nav mr-auto">
 　　　　　
         <li class="nav-item">
-          <a class="nav-link" href="{% url 'give_list' %}">Giveリスト</a>
+          <a class="nav-link" href="{% url 'want_list' %}">ほしいリスト</a>
         <li class="nav-item">
-          <a class="nav-link" href="{% url 'want_list' %}">Wantリスト</a>         
+          <a class="nav-link" href="{% url 'give_list' %}">あげるリスト</a>         
         <li class="nav-item">
           <a class="nav-link" href="{% url 'profile_list' %}">プロフィールリスト<span class="sr-only">(current)</span></a>
         </li>
           <li class="nav-item">
-          <a class="nav-link" href="{% url 'give_new' %}">あげたい！</a>
+          <a class="nav-link" href="{% url 'want_new' %}">ほしい！</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{% url 'want_new' %}">ほしい！</a>
+          <a class="nav-link" href="{% url 'give_new' %}">あげたい！</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="{% url 'profile_new' %}">プロフィール新規作成</a>
@@ -59,25 +59,25 @@
 
 <!---->
     </header>
-                <div>
-                  {% if messages %}
-                    <div class="container">
-                        <div class="row">
-                            <div class="my-div-style w-100">
-                                <ul class="messages" style="list-style: none;">
-                                    {% for message in messages %}
-                                    <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>
-                                        {{ message }}
-                                    </li>
-                                    {% endfor %}
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                  {% endif %}   
-                {% block content %}
-                {% endblock %}
+    <div>
+      {% if messages %}
+        <div class="container">
+            <div class="row">
+                <div class="my-div-style w-100">
+                    <ul class="messages" style="list-style: none;">
+                        {% for message in messages %}
+                        <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>
+                            {{ message }}
+                        </li>
+                        {% endfor %}
+                    </ul>
                 </div>
+            </div>
+        </div>
+      {% endif %}   
+    {% block content %}
+    {% endblock %}
+    </div>
 
 
                <!-- Footer -->
