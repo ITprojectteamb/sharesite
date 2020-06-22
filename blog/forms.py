@@ -16,7 +16,7 @@ class ProfileCreateForm(forms.ModelForm):
 class GiveCreateForm(forms.ModelForm):
     class Meta:
         model = Give
-        fields = ('author', 'give_name','give_information', 'give_reason','delivery_infomation', 'photo')
+        fields = ('give_name','give_information', 'give_reason','delivery_infomation', 'photo')
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -31,7 +31,7 @@ class GiveCommentForm(forms.ModelForm):
 class WantCreateForm(forms.ModelForm):
     class Meta:
         model = Want
-        fields = ('author','want_name', 'want_information', 'want_reason','emergency_attribute', 'photo')
+        fields = ('want_name', 'want_information', 'want_reason','emergency_attribute', 'photo')
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

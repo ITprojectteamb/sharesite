@@ -4,6 +4,7 @@ from django.utils import timezone
 from accounts.models import CustomUser
 
 class Profile(models.Model):
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     name = models.CharField('社員名（※必須）',max_length=30)
     introduction = models.TextField('ひとこと（※任意）',max_length=200,null=True)
     photo = models.ImageField('プロフィール画像（※任意）',blank=True,null=True)
