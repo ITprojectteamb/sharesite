@@ -23,16 +23,10 @@ class GiveCreateForm(forms.ModelForm):
         for field in self.fields.values():
             field.widget.attrs['class'] = 'form-control'
 
-class GiveCommentCreateForm(forms.ModelForm):
+class GiveCommentForm(forms.ModelForm):
     class Meta:
         model = Give_comment
         fields = ('text',)
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        for field in self.fields.values():
-            field.widget.attrs['class'] = 'form-control'
-        
 
 class WantCreateForm(forms.ModelForm):
     class Meta:
@@ -52,4 +46,4 @@ class WantCommentForm(forms.ModelForm):
 class ProfileCommentForm(forms.ModelForm):
     class Meta:
         model = Profile_comment
-        fields = ('author', 'text',)
+        fields = ('text',)
