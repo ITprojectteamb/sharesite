@@ -55,7 +55,7 @@ class GiveCreateView(LoginRequiredMixin, generic.CreateView):
 
 
     def form_invalid(self, form):
-        messages.error(self.request, "品物が登録できませんできた。")
+        messages.error(self.request, "品物が登録できませんでした。")
         return super().form_invalid(form)
 
 
@@ -73,7 +73,7 @@ class WantCreateView(LoginRequiredMixin, generic.CreateView):
         return super().form_valid(form)
 
     def form_invalid(self, form):
-        messages.error(self.request, "品物が登録できませんできた。")
+        messages.error(self.request, "品物が登録できませんでした。")
         return super().form_invalid(form)
 
 def give_edit(request, pk):
@@ -130,7 +130,7 @@ class ProfileCreateView(LoginRequiredMixin, generic.CreateView):
 
     def form_valid(self, form):
         profile = form.save(commit=False)
-        profile.user = self.request.user
+        form.instance.author = self.request.user
         profile.save()
         messages.success(self.request, 'プロフィールを登録しました。')
         return super().form_valid(form)
@@ -227,7 +227,7 @@ class GiveUpdateView(LoginRequiredMixin, generic.UpdateView):
         obj = self.get_object()
         if obj.author != self.request.user:
             raise PermissionDenied('You do not have permission to edit.')
-        return super(UpdateView, self).dispatch(request, *args, **kwargs)
+        return super(GiveUpdateView, self).dispatch(request, *args, **kwargs)
 
     def get_success_url(self):
         return reverse_lazy('give_detail', kwargs={'pk': self.kwargs['pk']})
@@ -301,7 +301,7 @@ class ProfileUpdateView(LoginRequiredMixin, generic.UpdateView):
         obj = self.get_object()
         if obj.author != self.request.user:
             raise PermissionDenied('You do not have permission to edit.')
-        return super(ProfileView, self).dispatch(request, *args, **kwargs)
+        return super(ProfileUpdateView, self).dispatch(request, *args, **kwargs)
 
     def get_success_url(self):
         return reverse_lazy('profile_detail', kwargs={'pk': self.kwargs['pk']})
