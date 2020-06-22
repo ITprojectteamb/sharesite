@@ -119,7 +119,7 @@ class ProfileListView(LoginRequiredMixin, generic.ListView):
     paginate_by = 6
     
     def get_queryset(self):
-        profiles = Profile.objects.all()
+        profiles = Profile.objects.order_by('-final_update_time')
         return profiles
 
 class ProfileCreateView(LoginRequiredMixin, generic.CreateView):

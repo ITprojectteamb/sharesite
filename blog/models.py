@@ -8,6 +8,8 @@ class Profile(models.Model):
     name = models.CharField('社員名（※必須）',max_length=30)
     introduction = models.TextField('ひとこと（※任意）',max_length=200,null=True)
     photo = models.ImageField('プロフィール画像（※任意）',blank=True,null=True)
+    register_date = models.DateTimeField('登録日時',auto_now_add=True, blank=True, null=True)
+    final_update_time = models.DateTimeField('更新日時',auto_now=True, blank=True, null=True)  
 
     def __str__(self):
         return self.name
@@ -33,8 +35,8 @@ class Give(models.Model):
     give_information = models.TextField('詳細情報（※必須）',max_length=200,null=True)
     give_reason = models.TextField('あげたい理由（※任意）',max_length=200,null=True)
     delivery_infomation = models.CharField('引き渡し方法（※必須）',max_length=30,null=True)
-    register_date = models.DateTimeField('登録日時',auto_now_add=True)
-    final_update_time = models.DateTimeField('更新日時',auto_now=True)  
+    register_date = models.DateTimeField('登録日時',auto_now_add=True, blank=True, null=True)
+    final_update_time = models.DateTimeField('更新日時',auto_now=True, blank=True, null=True)  
     photo = models.ImageField(verbose_name='イメージ写真（※任意）', blank=True, null=True)
     
     def __str__(self):
@@ -65,8 +67,8 @@ class Want(models.Model):
     want_name = models.CharField('タイトル（※必須）',max_length=50)
     want_information = models.TextField('詳細情報（※必須）',max_length=200,null=True)
     want_reason = models.TextField('ほしい理由（※任意）',max_length=200,null=True)
-    register_date = models.DateTimeField('登録日時',auto_now_add=True)
-    final_update_time = models.DateTimeField('更新日時',auto_now=True) 
+    register_date = models.DateTimeField('登録日時',auto_now_add=True, blank=True, null=True)
+    final_update_time = models.DateTimeField('更新日時',auto_now=True, blank=True, null=True) 
     photo = models.ImageField(verbose_name='イメージ写真（※任意）', blank=True, null=True)
 
     def __str__(self):
