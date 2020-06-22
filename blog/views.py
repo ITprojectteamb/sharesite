@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.utils import timezone
 from .models import  Give,Want,Profile,Give_comment,Want_comment,Profile_comment
 from django.shortcuts import render, get_object_or_404
-from .forms import GiveCreateForm,WantCreateForm,ProfileCreateForm,GiveCommentCreateForm,WantCommentForm,ProfileCommentForm
+from .forms import GiveCreateForm,WantCreateForm,ProfileCreateForm,GiveCommentForm,WantCommentForm,ProfileCommentForm
 from django.shortcuts import redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -175,11 +175,12 @@ def add_comment_to_want(request,pk):
         form = WantCommentForm()
     return render(request, 'sharesite/add_comment_to_want.html', {'form': form})
 
-def add_comment_to_profile(request, pk):
+def add_comment_to_profile(request,pk):
     profile = get_object_or_404(Profile, pk=pk)
     if request.method == "POST":
         form = ProfileCommentForm(request.POST)
         if form.is_valid():
+            form.instance.author = request.user
             comment = form.save(commit=False)
             comment.profile = profile
             comment.save()
