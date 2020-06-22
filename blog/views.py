@@ -9,6 +9,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views import generic
 from django.urls import reverse_lazy
 from django.contrib import messages
+from django.core.exceptions import PermissionDenied
 
 
 class PostListView(LoginRequiredMixin, generic.ListView):
@@ -41,16 +42,17 @@ class WantListView(LoginRequiredMixin, generic.ListView):
 
 class GiveCreateView(LoginRequiredMixin, generic.CreateView):
     model = Give
-    template_name = 'give_new.html'
     form_class = GiveCreateForm
+    template_name = 'give_new.html'
     success_url = reverse_lazy('give_list')
 
     def form_valid(self, form):
         give = form.save(commit=False)
-        give.user = self.request.user
+        form.instance.author = self.request.user
         give.save()
         messages.success(self.request, '品物を登録しました。')
-        return super().form_valid(form)
+        return super(GiveCreateView, self).form_valid(form)
+
 
     def form_invalid(self, form):
         messages.error(self.request, "品物が登録できませんできた。")
@@ -65,7 +67,7 @@ class WantCreateView(LoginRequiredMixin, generic.CreateView):
 
     def form_valid(self, form):
         want = form.save(commit=False)
-        want.user = self.request.user
+        form.instance.author = self.request.user
         want.save()
         messages.success(self.request, '品物を登録しました。')
         return super().form_valid(form)
@@ -205,6 +207,13 @@ class GiveDeleteView(LoginRequiredMixin, generic.DeleteView):
     template_name = 'give_delete.html'
     success_url = reverse_lazy('give_list')
 
+    def dispatch(self, request, *args, **kwargs):
+        obj = self.get_object()
+        if obj.author != self.request.user:
+            raise PermissionDenied('You do not have permission to edit.')
+        return super(GiveDeleteView, self).dispatch(request, *args, **kwargs)
+
+
     def delete(self, request, *args, **kwargs):
         messages.success(self.request, "投稿を削除しました。")
         return super().delete(request, *args, **kwargs)
@@ -213,6 +222,12 @@ class GiveUpdateView(LoginRequiredMixin, generic.UpdateView):
     model = Give
     template_name = 'give_update.html'
     form_class = GiveCreateForm
+
+    def dispatch(self, request, *args, **kwargs):
+        obj = self.get_object()
+        if obj.author != self.request.user:
+            raise PermissionDenied('You do not have permission to edit.')
+        return super(UpdateView, self).dispatch(request, *args, **kwargs)
 
     def get_success_url(self):
         return reverse_lazy('give_detail', kwargs={'pk': self.kwargs['pk']})
@@ -230,6 +245,12 @@ class WantDeleteView(LoginRequiredMixin, generic.DeleteView):
     template_name = 'want_delete.html'
     success_url = reverse_lazy('want_list')
 
+    def dispatch(self, request, *args, **kwargs):
+        obj = self.get_object()
+        if obj.author != self.request.user:
+            raise PermissionDenied('You do not have permission to edit.')
+        return super(WantDeleteView, self).dispatch(request, *args, **kwargs)
+
     def delete(self, request, *args, **kwargs):
         messages.success(self.request, "投稿を削除しました。")
         return super().delete(request, *args, **kwargs)
@@ -238,6 +259,12 @@ class WantUpdateView(LoginRequiredMixin, generic.UpdateView):
     model = Want
     template_name = 'want_update.html'
     form_class = WantCreateForm
+
+    def dispatch(self, request, *args, **kwargs):
+        obj = self.get_object()
+        if obj.author != self.request.user:
+            raise PermissionDenied('You do not have permission to edit.')
+        return super(WantUpdateView, self).dispatch(request, *args, **kwargs)
 
     def get_success_url(self):
         return reverse_lazy('want_detail', kwargs={'pk': self.kwargs['pk']})
@@ -255,6 +282,12 @@ class ProfileDeleteView(LoginRequiredMixin, generic.DeleteView):
     template_name = 'profile_delete.html'
     success_url = reverse_lazy('profile_list')
 
+    def dispatch(self, request, *args, **kwargs):
+        obj = self.get_object()
+        if obj.author != self.request.user:
+            raise PermissionDenied('You do not have permission to edit.')
+        return super(ProfileDeleteView, self).dispatch(request, *args, **kwargs)
+
     def delete(self, request, *args, **kwargs):
         messages.success(self.request, "投稿を削除しました。")
         return super().delete(request, *args, **kwargs)
@@ -263,6 +296,12 @@ class ProfileUpdateView(LoginRequiredMixin, generic.UpdateView):
     model = Profile
     template_name = 'profile_update.html'
     form_class = ProfileCreateForm
+
+    def dispatch(self, request, *args, **kwargs):
+        obj = self.get_object()
+        if obj.author != self.request.user:
+            raise PermissionDenied('You do not have permission to edit.')
+        return super(ProfileView, self).dispatch(request, *args, **kwargs)
 
     def get_success_url(self):
         return reverse_lazy('profile_detail', kwargs={'pk': self.kwargs['pk']})
