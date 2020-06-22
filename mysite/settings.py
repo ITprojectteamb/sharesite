@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'allauth',
     'allauth.account',
+    'storages',
 ]
 
 MIDDLEWARE = [
@@ -170,3 +171,13 @@ EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 't.local.k@gmail.com'
 EMAIL_HOST_PASSWORD = 'qgywnbcqshimgfiy'
+
+from google.oauth2 import service_account
+GS_CREDENTIALS = service_account.Credentials.from_service_account_file(
+    os.path.join(BASE_DIR, 'sklt-team-b-01-28a69c3e0861.json')
+)
+DEFAULT_FILE_STORAGE = 'storages.backends.gcloud.GoogleCloudStorage'
+STATICFILES_STORAGE = 'storages.backends.gcloud.GoogleCloudStorage'
+GS_BUCKET_NAME = 'sklt-teamb-photo'
+GS_PROJECT_ID = 'sklt-team-b-01'
+STATIC_URL = 'https://storage.googleapis.com/sklt-teamb-photo/'
