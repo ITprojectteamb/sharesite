@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.utils import timezone
 from .models import  Give,Want,Profile,Give_comment,Want_comment,Profile_comment
 from django.shortcuts import render, get_object_or_404
-from .forms import GiveCreateForm,WantCreateForm,ProfileCreateForm,GiveCommentForm,WantCommentForm,ProfileCommentForm
+from .forms import GiveCreateForm,WantCreateForm,ProfileCreateForm,GiveCommentCreateForm,WantCommentForm,ProfileCommentForm
 from django.shortcuts import redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -38,7 +38,6 @@ class WantListView(LoginRequiredMixin, generic.ListView):
     def get_queryset(self):
         wants = Want.objects.order_by('-final_update_time')
         return wants
-
 
 class GiveCreateView(LoginRequiredMixin, generic.CreateView):
     model = Give
@@ -108,7 +107,6 @@ class GiveDetailView(LoginRequiredMixin, generic.DetailView):
     model = Give
     template_name = 'give_detail.html'
 
-
 class WantDetailView(LoginRequiredMixin, generic.DetailView):
     model = Want
     template_name = 'want_detail.html'
@@ -119,7 +117,7 @@ class ProfileListView(LoginRequiredMixin, generic.ListView):
     paginate_by = 6
     
     def get_queryset(self):
-        profiles = Profile.objects.all()
+        profiles = Profile.objects.order_by('-final_update_time')
         return profiles
 
 class ProfileCreateView(LoginRequiredMixin, generic.CreateView):
@@ -143,12 +141,12 @@ class ProfileDetailView(LoginRequiredMixin, generic.DetailView):
     model = Profile
     template_name = 'profile_detail.html'
     
-    
-def add_comment_to_give(request, pk):
-    give = get_object_or_404(Give, pk=pk)
+def add_comment_to_give(request,pk):
+    give = get_object_or_404(Want, pk=pk)
     if request.method == "POST":
         form = GiveCommentForm(request.POST)
         if form.is_valid():
+            form.instance.author = request.user
             comment = form.save(commit=False)
             comment.give = give
             comment.save()
@@ -163,11 +161,12 @@ def give_comment_remove(request, pk):
     comment.delete()
     return redirect('give_detail', pk=comment.give.pk)
 
-def add_comment_to_want(request, pk):
+def add_comment_to_want(request,pk):
     want = get_object_or_404(Want, pk=pk)
     if request.method == "POST":
         form = WantCommentForm(request.POST)
         if form.is_valid():
+            form.instance.author = request.user
             comment = form.save(commit=False)
             comment.want = want
             comment.save()
